@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using NovaScotiaWoodworks.AccountManager;
 using NovaScotiaWoodworks.Data;
 using NovaScotiaWoodworks.Models;
 
@@ -27,6 +28,9 @@ namespace NovaScotiaWoodworks.Pages.Account
         {
             if (!ModelState.IsValid)
                 return Redirect("/Privacy");
+
+            string hashedPassword = PasswordHash.GetStringSha256Hash(CurrentUser.Password);
+            CurrentUser.Password = hashedPassword;
 
             _db.Users.Add(CurrentUser);
             _db.SaveChanges();

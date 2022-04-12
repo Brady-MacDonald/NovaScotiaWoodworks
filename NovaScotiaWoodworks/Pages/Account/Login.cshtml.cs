@@ -1,10 +1,13 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using NovaScotiaWoodworks.AccountManager;
 using NovaScotiaWoodworks.Data;
 using NovaScotiaWoodworks.Models;
+using System;
 using System.Collections.Generic;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 
 namespace NovaScotiaWoodworks.Pages.Account
@@ -29,14 +32,15 @@ namespace NovaScotiaWoodworks.Pages.Account
         {
             if (!ModelState.IsValid) return Page();
 
-            UserModel currentUser = _db.Users.Find(1);
-
-            if(currentUser == null)
+            UserModel dbUser = _db.Users.Find(2);
+            if (dbUser == null)
                 //Unable to locate user account
                 return Redirect("/Privacy");
 
+            string hashedPassword = PasswordHash.GetStringSha256Hash(CurrentUser.Password);
+
             //Verify the credentials
-            if (CurrentUser.Username == currentUser.Username && CurrentUser.Password == currentUser.Password)
+            if (CurrentUser.Username == dbUser.Username && hashedPassword == dbUser.Password)
             {
                 //Create security context
                 //We just need the primary identity
