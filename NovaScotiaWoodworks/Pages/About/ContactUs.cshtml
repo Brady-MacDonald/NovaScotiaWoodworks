@@ -1,0 +1,73 @@
+﻿@page
+@model NovaScotiaWoodworks.Pages.About.ContactUsModel
+@{
+}
+
+<div>
+	<h1>Contact Us</h1>
+</div>
+
+<div class="container border mt-5" style="padding:20px">
+	<form method="post">
+		<table>
+			<tr>
+				<td>
+					<label asp-for="ContactRequest.Name"></label>
+				</td>
+				<td>
+					<input type="text" asp-for="ContactRequest.Name" class="form-control"/>
+					<span class="text-danger" asp-validation-for="ContactRequest.Name" />
+				</td>
+				<td>
+
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label asp-for="ContactRequest.Email"></label>
+				</td>
+				<td>
+					<input type="text" asp-for="ContactRequest.Email" class="form-control"/>
+					<span class="text-danger" asp-validation-for="ContactRequest.Email" />
+				</td>
+				<td>
+
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label asp-for="ContactRequest.Subject"></label>
+				</td>
+				<td>
+					<input type="text" asp-for="ContactRequest.Subject" class="form-control"/>
+					<span class="text-danger" asp-validation-for="ContactRequest.Subject" />
+				</td>
+				<td>
+
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label asp-for="ContactRequest.Comment"></label>
+				</td>
+				<td>
+					<input type="text" asp-for="ContactRequest.Comment" class="form-control"/>
+					<span class="text-danger" asp-validation-for="ContactRequest.Comment" />
+				</td>
+				<td>
+
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3">
+					<label></label>
+				</td>
+			</tr>
+		</table>
+
+		<!-- Submit button -->
+		<div class="col-2">
+				<input type="submit" class="btn btn-primary" value="Submit" />
+		</div>
+	</form>
+</div>
