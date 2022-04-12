@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using NovaScotiaWoodworks.Data;
@@ -5,6 +6,7 @@ using NovaScotiaWoodworks.Models;
 
 namespace NovaScotiaWoodworks.Pages.Admin
 {
+    [Authorize(Policy = "AdminOnly")]
     public class AdminDeleteModel : PageModel
     {
         private readonly ApplicationDbContext _db;
