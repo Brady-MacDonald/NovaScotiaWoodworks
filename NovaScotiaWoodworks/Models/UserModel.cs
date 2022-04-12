@@ -5,7 +5,6 @@ namespace NovaScotiaWoodworks.Models
     public class UserModel
     {
         [Key]
-        public int Id { get; set; }
         [Required]
         [Display(Name = "User name")]
         public string Username { get; set; }

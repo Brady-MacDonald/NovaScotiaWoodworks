@@ -1,0 +1,35 @@
+﻿@page
+@model NovaScotiaWoodworks.Pages.Account.EditProfileModel
+@{
+}
+
+<form method="post">
+	<div class="border p-3 mt-4">
+		<div class="row pb-2">
+			<h2 class="text-primary">Edit Contact</h2>
+			<hr />
+		</div>
+		@*<div asp-validation-summary="All"></div>*@
+		<div class="mb-3">
+			<label asp-for="CurrentUser.FirstName"></label>
+			<input asp-for="CurrentUser.FirstName" class="form-control"/>
+			<span asp-validation-for="CurrentUser.FirstName" class="text-danger"></span>
+		</div>
+		<div class="mb-3">
+			<label asp-for="CurrentUser.LastName"></label>
+			<input asp-for="CurrentUser.LastName" class="form-control"/>
+			<span asp-validation-for="CurrentUser.LastName" class="text-danger"></span>
+		</div>
+		<div class="mb-3">
+			<label asp-for="CurrentUser.Username"></label>
+			<input asp-for="CurrentUser.Username" class="form-control"/>
+			<span asp-validation-for="CurrentUser.Username" class="text-danger"></span>
+		</div>
+		<div class="mb-3">
+			<label asp-for="CurrentUser.Password"></label>
+			<input asp-for="CurrentUser.Password" class="form-control"/>
+			<span asp-validation-for="CurrentUser.Password" class="text-danger"></span>
+		</div>
+		<button type="submit" class="btn btn-primary" style="width:150px">Update</button>
+	</div>
+</form>

@@ -9,8 +9,8 @@ using NovaScotiaWoodworks.Data;
 namespace NovaScotiaWoodworks.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220412012305_AddUsersMigration")]
-    partial class AddUsersMigration
+    [Migration("20220412122524_UpdateUsersMigration")]
+    partial class UpdateUsersMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -22,10 +22,8 @@ namespace NovaScotiaWoodworks.Migrations
 
             modelBuilder.Entity("NovaScotiaWoodworks.Models.UserModel", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+                    b.Property<string>("Username")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
@@ -40,11 +38,7 @@ namespace NovaScotiaWoodworks.Migrations
                     b.Property<bool>("RememberMe")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
+                    b.HasKey("Username");
 
                     b.ToTable("Users");
                 });

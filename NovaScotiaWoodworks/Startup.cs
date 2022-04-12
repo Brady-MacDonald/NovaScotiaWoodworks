@@ -43,7 +43,7 @@ namespace NovaScotiaWoodworks
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("AdminOnly",
-                    policy => policy.RequireClaim("Admin"));
+                    policy => policy.RequireClaim("Admin", "true"));
                 options.AddPolicy("MustBeBusiness",
                     policy => policy.RequireClaim("AccountType", "Business"));
             });

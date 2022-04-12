@@ -21,8 +21,8 @@ namespace NovaScotiaWoodworks.Pages.Account
 
         public LoginModel(ApplicationDbContext db)
         {
-            CurrentUser = new UserModel();
             _db = db;
+            CurrentUser = new UserModel();
         }
         public void OnGet()
         {
@@ -32,27 +32,28 @@ namespace NovaScotiaWoodworks.Pages.Account
         {
             if (!ModelState.IsValid) return Page();
 
-            UserModel dbUser = _db.Users.Find(2);
+            UserModel dbUser = _db.Users.Find(CurrentUser.Username);
+
             if (dbUser == null)
                 //Unable to locate user account
-                return Redirect("/Privacy");
+                return Redirect("/AccessDenied");
 
             string hashedPassword = PasswordHash.GetStringSha256Hash(CurrentUser.Password);
 
             //Verify the credentials
             if (CurrentUser.Username == dbUser.Username && hashedPassword == dbUser.Password)
             {
-                //Create security context
-                //We just need the primary identity
-                var claims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.Name, "admin"),
-                    new Claim("AccountType", "Business"),
-                    new Claim("Admin", "true"),
-                };
-                var identity = new ClaimsIdentity(claims, "AuthenticationCookie");
-                ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(identity);    
+                ClaimsPrincipal claimsPrincipal;
 
+                //Apply admin credentials
+                if (CurrentUser.Username == "admin")
+                {
+                    claimsPrincipal = CreateClaims("true");
+                }
+                else
+                {
+                    claimsPrincipal = CreateClaims("false");
+                }
                 var authProperties = new AuthenticationProperties
                 {
                     IsPersistent = CurrentUser.RememberMe
@@ -61,11 +62,26 @@ namespace NovaScotiaWoodworks.Pages.Account
                 //We must implement the event handler 
                 //We let asp.net implement the iterface and use the dependency injection
                 await HttpContext.SignInAsync("AuthenticationCookie", claimsPrincipal, authProperties);
-
+                
                 return Redirect("/Index");
             }
-
             return Page();
+        }
+
+        public ClaimsPrincipal CreateClaims(string admin)
+        {
+            //Create security context
+            //We just need the primary identity
+            var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Name, CurrentUser.Username),
+                    new Claim("AccountType", "Business"),
+                    new Claim("Admin", admin),
+                };
+            var identity = new ClaimsIdentity(claims, "AuthenticationCookie");
+            ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(identity);
+
+            return claimsPrincipal;
         }
     }
 }

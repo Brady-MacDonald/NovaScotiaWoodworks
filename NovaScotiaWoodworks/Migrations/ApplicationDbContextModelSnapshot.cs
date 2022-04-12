@@ -20,10 +20,8 @@ namespace NovaScotiaWoodworks.Migrations
 
             modelBuilder.Entity("NovaScotiaWoodworks.Models.UserModel", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+                    b.Property<string>("Username")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
@@ -38,11 +36,7 @@ namespace NovaScotiaWoodworks.Migrations
                     b.Property<bool>("RememberMe")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
+                    b.HasKey("Username");
 
                     b.ToTable("Users");
                 });
