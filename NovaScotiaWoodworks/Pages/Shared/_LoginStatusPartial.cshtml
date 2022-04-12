@@ -1,19 +1,27 @@
 ﻿@if (User.Identity.IsAuthenticated)
 {
 	<form method="post" class="form-inline" asp-page="/Account/Logout">
-		Welcome @User.Identity.Name
-		@if (User.Identity.Name == "admin"){
-			<a class="btn btn-link" asp-page="/Admin/Settings">Settings</a>
-			<a class="btn btn-link" asp-page="/Admin/ListUsers">ListUsers</a>
-		}
-		<a class="btn btn-link" asp-page="/Account/EditProfile">EditProfile</a>
-		<button type="submit" class="ml-2 btn btn-link">
-			Logout
-		</button>
+		<li class="nav-item dropdown">
+			<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+				Welcome @User.Identity.Name
+			</a>
+            <div class="dropdown-menu">
+				<a class="dropdown-item" asp-page="/Account/EditProfile">EditProfile</a>
+				@if (User.Identity.Name == "admin"){
+					<a class="dropdown-item" asp-page="/Admin/Settings">Settings</a>
+					<a class="dropdown-item" asp-page="/Admin/ListUsers">ListUsers</a>
+				}
+                
+                <div class="dropdown-divider"></div>
+                <button type="submit" class="ml-2 btn btn-link">
+					Logout
+				</button>
+            </div>
+        </li>
 	</form>
 }
-
-else{
+else
+{
 	<a class="btn btn-link" asp-page="/Account/Login">Login</a>
 	<a class="btn btn-link" asp-page="/Account/Register">Register</a>
 }
