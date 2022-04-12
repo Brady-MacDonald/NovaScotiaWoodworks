@@ -3,56 +3,41 @@
 @{
 }
 
-<div class="container border" style="padding:20px">
+<div class="container border mt-5" style="padding:20px">
 	<form method="post">
 		<div class="text-danger" asp-validation-summary="ModelOnly"></div>
-		<div class="form-group row">
-			<div class="col-2">
-				<label asp-for="CurrentUser.Username"></label>
-			</div>
-			<div class="col-5">
-				<input type="text" asp-for="CurrentUser.Username" class="form-control"/>
-			</div>
+		
+		<!-- Username input -->
+		<div class="form-outline mb-4">
+			<input type="text" asp-for="CurrentUser.Username" class="form-control"/>
+			<label asp-for="CurrentUser.Username"></label>
 			<span class="text-danger" asp-validation-for="CurrentUser.Username" />
 		</div>
 		
-		<div class="form-group row">
-			<div class="col-2">
-				<label asp-for="CurrentUser.Password"></label>
-			</div>
-			<div class="col-5">
-				<input type="password" asp-for="CurrentUser.Password" class="form-control"/>
-			</div>
+		<!-- Password input -->
+		<div class="form-outline mb-4">
+			<input type="password" asp-for="CurrentUser.Password" class="form-control"/>
+			<label asp-for="CurrentUser.Password"></label>
 			<span class="text-danger" asp-validation-for="CurrentUser.Password" />
 		</div>
-
-		<div class="form-group row">
-			<div class="col-2">
-				<label asp-for="CurrentUser.FirstName"></label>
-			</div>
-			<div class="col-5">
-				<input type="text" asp-for="CurrentUser.FirstName" class="form-control"/>
-			</div>
+			
+		<!-- Firstname input -->
+		<div class="form-outline mb-4">
+			<input type="text" asp-for="CurrentUser.FirstName" class="form-control"/>
+			<label asp-for="CurrentUser.FirstName"></label>
 			<span class="text-danger" asp-validation-for="CurrentUser.FirstName" />
 		</div>
 
-		<div class="form-group row">
-			<div class="col-2">
-				<label asp-for="CurrentUser.LastName"></label>
-			</div>
-			<div class="col-5">
-				<input type="text" asp-for="CurrentUser.LastName" class="form-control"/>
-			</div>
+		<!-- Lastname input -->
+		<div class="form-outline mb-4">
+			<input type="text" asp-for="CurrentUser.LastName" class="form-control"/>
+			<label asp-for="CurrentUser.LastName"></label>
 			<span class="text-danger" asp-validation-for="CurrentUser.LastName" />
 		</div>
-
-		<div class="form-group row">
-			<div class="col-2">
-				<input type="submit" class="btn btn-primary" value="Register" />
-			</div>
-			<div>
-
-			</div>
+		
+		<!-- Submit button -->
+		<div class="col-2">
+				<input type="submit" class="btn btn-primary" value="Login" />
 		</div>
 	</form>
 </div>
