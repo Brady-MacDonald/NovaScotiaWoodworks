@@ -1,0 +1,42 @@
+﻿@page
+@model NovaScotiaWoodworks.Pages.Admin.ListUsersModel
+@{
+}
+
+<div>
+    <h1>All Users List</h1>
+
+	@if(User.Identity.IsAuthenticated)
+    {
+        <table class="table table-bordered table-striped" style="width:%100">
+            <thead>
+                <tr>
+                    <th>
+                        Username
+                    </th>
+                    <th>
+                        First Name
+                    </th>
+                    <th>
+                        Last Name
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                @foreach(var user in Model.UserList)
+                {
+                    <tr>
+                        <td>@user.Username</td>
+                        <td>@user.FirstName</td>
+                        <td>@user.LastName</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No contacts to display</p>
+    }
+</div>
