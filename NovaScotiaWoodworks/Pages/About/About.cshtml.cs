@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace NovaScotiaWoodworks.Pages
+namespace NovaScotiaWoodworks.Pages.About
 {
     public class AboutModel : PageModel
     {
