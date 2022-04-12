@@ -3,41 +3,65 @@
 @{
 }
 
-<div class="container border mt-5" style="padding:20px">
+<div class="container-sm border m-5 text-center" style="padding:20px">
+	
+	<h2>Register</h2>
+	
 	<form method="post">
 		<div class="text-danger" asp-validation-summary="ModelOnly"></div>
-		
+
 		<!-- Username input -->
-		<div class="form-outline mb-4">
-			<input type="text" asp-for="CurrentUser.Username" class="form-control"/>
-			<label asp-for="CurrentUser.Username"></label>
-			<span class="text-danger" asp-validation-for="CurrentUser.Username" />
-		</div>
-		
-		<!-- Password input -->
-		<div class="form-outline mb-4">
-			<input type="password" asp-for="CurrentUser.Password" class="form-control"/>
-			<label asp-for="CurrentUser.Password"></label>
-			<span class="text-danger" asp-validation-for="CurrentUser.Password" />
-		</div>
-			
-		<!-- Firstname input -->
-		<div class="form-outline mb-4">
-			<input type="text" asp-for="CurrentUser.FirstName" class="form-control"/>
-			<label asp-for="CurrentUser.FirstName"></label>
-			<span class="text-danger" asp-validation-for="CurrentUser.FirstName" />
+		<div class="form-outline mb-4 row">
+			<div class="col-5 text-end">
+				<label asp-for="CurrentUser.Username"></label>
+			</div>
+			<div class="col-3">
+				<input class="form-control" type="text" asp-for="CurrentUser.Username" place-holder="Username" autofocus/>
+				<span class="text-danger" asp-validation-for="CurrentUser.Username" />
+			</div>
 		</div>
 
-		<!-- Lastname input -->
-		<div class="form-outline mb-4">
-			<input type="text" asp-for="CurrentUser.LastName" class="form-control"/>
-			<label asp-for="CurrentUser.LastName"></label>
-			<span class="text-danger" asp-validation-for="CurrentUser.LastName" />
+		<!-- Password input -->
+		<div class="form-outline mb-4 row">
+			<div class="col-5 text-end">
+				<label asp-for="CurrentUser.Password"></label>
+			</div>
+			<div class="col-3">
+				<input type="password" asp-for="CurrentUser.Password" class="form-control"/>
+				<span class="text-danger" asp-validation-for="CurrentUser.Password" />	
+			</div>
 		</div>
-		
-		<!-- Submit button -->
-		<div class="col-2">
-				<input type="submit" class="btn btn-primary" value="Login" />
+
+		<!-- FirstName input -->
+		<div class="form-outline mb-4 row">
+			<div class="col-5 text-end">
+				<label asp-for="CurrentUser.FirstName"></label>
+			</div>
+			<div class="col-3">
+				<input type="text" asp-for="CurrentUser.FirstName" class="form-control"/>
+				<span class="text-danger" asp-validation-for="CurrentUser.FirstName" />	
+			</div>
+		</div>
+
+		<!-- LastName input -->
+		<div class="form-outline mb-4 row">
+			<div class="col-5 text-end">
+				<label asp-for="CurrentUser.LastName"></label>
+			</div>
+			<div class="col-3">
+				<input type="text" asp-for="CurrentUser.LastName" class="form-control"/>
+				<span class="text-danger" asp-validation-for="CurrentUser.LastName" />	
+			</div>
+		</div>
+
+		<label class="text-danger" asp-for"ErrorMessage">
+			@Html.ValidationMessage("DuplicateUser")
+			@Html.ValidationMessage("Error")
+		</label>
+
+		<!-- Submit Button -->
+		<div class="mt-2"display="flex" justify-content="center">
+			<input type="submit" class="btn btn-primary" value="Register" />
 		</div>
 	</form>
 </div>

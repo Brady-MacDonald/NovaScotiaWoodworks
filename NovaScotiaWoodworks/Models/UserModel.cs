@@ -6,7 +6,7 @@ namespace NovaScotiaWoodworks.Models
     {
         [Key]
         [Required]
-        [Display(Name = "User name")]
+        [Display(Name = "User Name")]
         public string Username { get; set; }
         [Required]
         [DataType(DataType.Password)]

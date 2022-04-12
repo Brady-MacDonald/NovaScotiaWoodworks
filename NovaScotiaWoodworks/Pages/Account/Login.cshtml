@@ -3,60 +3,55 @@
 @{
 }
 
-<div class="container border mt-5" width="50%" style="padding:20px">
-	<div class="imgcontainer mb-4" display="flex" justify-content="center">
-		<img class="imglogin" src="/images/SignInAvatar.png" alt="Avatar" width="20%" height="20%">
+<div class="container-sm border m-5 text-center" style="padding:20px">
+	<div class="imgcontainer mb-3" display="flex" justify-content="center">
+		<img class="imglogin" src="/images/SignInAvatar.png" alt="Avatar">
 	</div>
-
+	<h2>Sign In</h2>
+	
 	<form method="post">
 		<div class="text-danger" asp-validation-summary="ModelOnly"></div>
 
 		<!-- Username input -->
-		<div class="form-outline mb-4">
-			
-			<input type="text" asp-for="CurrentUser.Username" class="form-control"/>
-			<label asp-for="CurrentUser.Username"></label>
-			<span class="text-danger" asp-validation-for="CurrentUser.Username" />
-			<!-- 
-			<input type="email" id="form2Example1" class="form-control" />
-			<label class="form-label" for="form2Example1">Email address</label> 
-			-->
+		<div class="form-outline mb-4 row">
+			<div class="col-5 text-end">
+				<label asp-for="CurrentUser.Username"></label>
+			</div>
+			<div class="col-3">
+				<input class="form-control" type="text" asp-for="CurrentUser.Username" place-holder="Username" autofocus/>
+				<span class="text-danger" asp-validation-for="CurrentUser.Username" />
+			</div>
 		</div>
 
 		<!-- Password input -->
-		<div class="form-outline mb-4">
-			<input type="password" asp-for="CurrentUser.Password" class="form-control"/>
-			<label asp-for="CurrentUser.Password"></label>
-			<span class="text-danger" asp-validation-for="CurrentUser.Password" />
-			<!--
-			<input type="password" id="form2Example2" class="form-control" />
-			<label class="form-label" for="form2Example2">Password</label>
-			-->
+		<div class="form-outline mb-4 row">
+			<div class="col-5 text-end">
+				<label asp-for="CurrentUser.Password"></label>
+			</div>
+			<div class="col-3">
+				<input type="password" asp-for="CurrentUser.Password" class="form-control"/>
+				<span class="text-danger" asp-validation-for="CurrentUser.Password" />	
+			</div>
 		</div>
-
-		<!-- 2 column grid layout for inline styling -->
+		<label class="text-danger mb-2">
+			@Html.ValidationMessage("NoAccount")
+		</label>
 		<div class="row mb-4">
-			<div class="col d-flex justify-content-center">
-				<!-- Checkbox -->
-				<div class="form-check">
-					<input class="form-check-input" type="checkbox" value="" id="form2Example31" checked />
-					<label class="form-check-label" for="form2Example31"> Remember me </label>
-				</div>
+			<div class="col-6 text-end">
+				<!-- Remeber Me Checkbox -->
+				<input class="form-check-input" type="checkbox" value="" id="form2Example31" checked />
+				<label class="form-check-label" for="form2Example31"> Remember me </label>
 			</div>
 
-			<div class="col">
-				<!-- Simple link -->
+			<div class="col-6 text-start ml-1">
+				<!-- Forgot Password Link -->
 				<a href="#!">Forgot password?</a>
 			</div>
-			<div class="col">
-				<!-- Simple link -->
-				<a class="btn btn-link" asp-page="/Account/Register">Create Account</a>
-			</div>
 		</div>
-
-		<!-- Submit button -->
-		<div class="col-2">
-				<input type="submit" class="btn btn-primary" value="Login" />
+		<a class="btn btn-link row" asp-page="/Account/Register">Create Account</a>
+		<!-- Submit Button -->
+		<div display="flex" justify-content="center">
+			<input type="submit" class="btn btn-primary" value="Login" />
 		</div>
 	</form>
 </div>

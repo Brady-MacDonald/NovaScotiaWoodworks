@@ -21,7 +21,7 @@ namespace NovaScotiaWoodworks.Pages.Account
             _db = db;
             CurrentUser = new UserModel();
         }
-        public void OnGet()
+        public IActionResult OnGet()
         {
             CurrentUser = _db.Users.Find(User.Identity.Name);
 
@@ -29,18 +29,26 @@ namespace NovaScotiaWoodworks.Pages.Account
 
             if (CurrentUser == null)
             {
-                Redirect("/AccessDenied");
+                ModelState.AddModelError("EditError", "Unable to load account information");
             }
-
-            //return Redirect("/Index");
+            return Page();
         }
 
         public IActionResult OnPost()
         {
-            //Updates existing entry based off key
-            _db.Users.Update(CurrentUser);
-            //Goes to db to push changes
-            _db.SaveChanges();
+            try
+            {
+                //Updates existing entry based off key
+                _db.Users.Update(CurrentUser);
+                //Goes to db to push changes
+                _db.SaveChanges();
+            }
+            catch
+            {
+                ModelState.AddModelError("EditError", "Unable to update account information");
+                return Page();
+            }
+
             //Looks for index action inside same controller
             return Redirect("/Index");
         }

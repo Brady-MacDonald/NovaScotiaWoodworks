@@ -31,13 +31,21 @@ namespace NovaScotiaWoodworks.Pages.Account
 
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid) return Page();
+            if (!ModelState.IsValid) 
+            {
+                ModelState.AddModelError("NoAccount", "Invalid input");
+                return Page();
+            }
+            
 
             UserModel dbUser = _db.Users.Find(CurrentUser.Username);
 
             if (dbUser == null)
+            {
                 //Unable to locate user account
-                return Redirect("/Account/AccessDenied");
+                ModelState.AddModelError("NoAccount", "Unable to locate account");
+                return Page();
+            }
 
             string hashedPassword = PasswordHash.GetStringSha256Hash(CurrentUser.Password);
 
@@ -66,9 +74,10 @@ namespace NovaScotiaWoodworks.Pages.Account
                 
                 return Redirect("/Index");
             }
+            ModelState.AddModelError("NoAccount", "Incorrect username or password");
             return Page();
         }
-
+        
         public ClaimsPrincipal CreateClaims(string admin)
         {
             //Create security context

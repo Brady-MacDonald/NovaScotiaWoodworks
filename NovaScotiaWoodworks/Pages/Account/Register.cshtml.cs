@@ -27,14 +27,26 @@ namespace NovaScotiaWoodworks.Pages.Account
         public IActionResult OnPost()
         {
             if (!ModelState.IsValid)
-                return Redirect("/Privacy");
+            {
+                ModelState.AddModelError("Error", "Invalid input");
+                return Page();
+            }
 
             string hashedPassword = PasswordHash.GetStringSha256Hash(CurrentUser.Password);
             CurrentUser.Password = hashedPassword;
 
-            _db.Users.Add(CurrentUser);
-            _db.SaveChanges();
-            return Redirect("/Index");
+            try
+            {
+                _db.Users.Add(CurrentUser);
+                _db.SaveChanges();
+            }
+            catch
+            {
+                ModelState.AddModelError("DuplicateUser", "That username is already in use by another user!");
+                return Page();
+            }
+
+            return Redirect("/Account/Login");
         }
     }
 }
