@@ -37,7 +37,7 @@ namespace NovaScotiaWoodworks.Pages.Account
 
             if (dbUser == null)
                 //Unable to locate user account
-                return Redirect("/AccessDenied");
+                return Redirect("/Account/AccessDenied");
 
             string hashedPassword = PasswordHash.GetStringSha256Hash(CurrentUser.Password);
 

@@ -24,7 +24,7 @@ namespace NovaScotiaWoodworks.Pages.Admin
         {
             //Return the full set of contacts 
             UserList = _db.Users;
-            System.Threading.Thread.Sleep(2000);
+            System.Threading.Thread.Sleep(1000);
         }
     }
 }
