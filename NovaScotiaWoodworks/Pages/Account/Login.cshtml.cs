@@ -23,6 +23,7 @@ namespace NovaScotiaWoodworks.Pages.Account
         {
             _db = db;
             CurrentUser = new UserModel();
+            //CurrentUser.Username = "test";
         }
         public void OnGet()
         {

@@ -3,46 +3,56 @@
 @{
 }
 
-<div class="container border" style="padding:20px">
+<div class="container border mt-5" width="50%" style="padding:20px">
+	<div class="imgcontainer mb-4" display="flex" justify-content="center">
+		<img class="imglogin" src="/images/SignInAvatar.png" alt="Avatar" width="20%" height="20%">
+	</div>
+
 	<form method="post">
 		<div class="text-danger" asp-validation-summary="ModelOnly"></div>
-		<div class="form-group row">
-			<div class="col-2">
-				<label asp-for="CurrentUser.Username"></label>
-			</div>
-			<div class="col-5">
-				<input type="text" asp-for="CurrentUser.Username" class="form-control"/>
-			</div>
+
+		<!-- Username input -->
+		<div class="form-outline mb-4">
+			
+			<input type="text" asp-for="CurrentUser.Username" class="form-control"/>
+			<label asp-for="CurrentUser.Username"></label>
 			<span class="text-danger" asp-validation-for="CurrentUser.Username" />
+			<!-- 
+			<input type="email" id="form2Example1" class="form-control" />
+			<label class="form-label" for="form2Example1">Email address</label> 
+			-->
 		</div>
-		
-		<div class="form-group row">
-			<div class="col-2">
-				<label asp-for="CurrentUser.Password"></label>
-			</div>
-			<div class="col-5">
-				<input type="password" asp-for="CurrentUser.Password" class="form-control"/>
-			</div>
+
+		<!-- Password input -->
+		<div class="form-outline mb-4">
+			<input type="password" asp-for="CurrentUser.Password" class="form-control"/>
+			<label asp-for="CurrentUser.Password"></label>
 			<span class="text-danger" asp-validation-for="CurrentUser.Password" />
+			<!--
+			<input type="password" id="form2Example2" class="form-control" />
+			<label class="form-label" for="form2Example2">Password</label>
+			-->
 		</div>
 
-		<div class="row form-check mb-2">
-			<div class="col-2">
-				<input type="checkbox" asp-for="CurrentUser.RememberMe" class="form-check-input"/>
-				<label class="form-check-label" asp-for="CurrentUser.RememberMe"/>
+		<!-- 2 column grid layout for inline styling -->
+		<div class="row mb-4">
+			<div class="col d-flex justify-content-center">
+				<!-- Checkbox -->
+				<div class="form-check">
+					<input class="form-check-input" type="checkbox" value="" id="form2Example31" checked />
+					<label class="form-check-label" for="form2Example31"> Remember me </label>
+				</div>
 			</div>
-			<div>
 
+			<div class="col">
+				<!-- Simple link -->
+				<a href="#!">Forgot password?</a>
 			</div>
 		</div>
 
-		<div class="form-group row">
-			<div class="col-2">
+		<!-- Submit button -->
+		<div class="col-2">
 				<input type="submit" class="btn btn-primary" value="Login" />
-			</div>
-			<div>
-
-			</div>
 		</div>
 	</form>
 </div>
