@@ -4,7 +4,60 @@
 }
 
 <div>
-	<h1>Tables</h1>
-	<p>We offer them</p>
-	<button>Order</button>
+	<div class="container mt-4">
+		<div class="row">
+			<div class="col-7">
+				<div>
+					<h2>Available Tables</h2>
+					<hr/>
+					<p>
+						Steven is dedicated to his craft of creating top end rustic pieces of woodworking <br/>
+						He has years of experience in the industry and is always improving his skills <br/>
+						Send him an
+					</p>
+				</div>
+			</div>
+			<div class="col-5 border">
+				<div>
+					<h2>Custom Design</h2>
+					<hr/>
+					<p>
+						Create a custom design that fits your requirements<br/>
+						Customize the dimensions and color to become your own interior decorator<br/>
+					</p>
+				</div>
+				<div class="mb-4 text-center">
+					<form method="post">
+						<!-- Color input -->
+						<div class="form-outline mb-4 row">
+							<div class="col-5 text-end">
+								<label>Enter Color: </label>
+							</div>
+							<div class="col-3">
+								<input class="form-control" type="text" place-holder="Color" autofocus/>
+								<span class="text-danger" />
+							</div>
+						</div>
+						<!-- Dimensions input -->
+						<div class="form-outline mb-4 row">
+							<div class="col-5 text-end">
+								<label>Enter Dimensions: </label>
+							</div>
+							<div class="col-3">
+								<input class="form-control" type="text" place-holder="Dimensions" autofocus/>
+								<span class="text-danger" />
+							</div>
+						</div>
+						<label class="text-danger">
+							@Html.ValidationMessage("OrderError")
+						</label>
+						<!-- Submit button -->
+						<div class="mt-1" display="flex" justify-content="center">
+							<input type="submit" class="btn btn-primary" value="Submit" />
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
