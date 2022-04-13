@@ -28,24 +28,54 @@
 				</div>
 				<div class="mb-4 text-center">
 					<form method="post">
+						<div class="text-danger" asp-validation-summary="ModelOnly"></div>
+
+						<!-- Email input -->
+						<div class="form-outline mb-4 row">
+							<div class="col-5 text-end">
+								<label asp-for="Order.Email"></label>
+							</div>
+							<div class="col-3">
+								<input class="form-control" type="text" asp-for="Order.Email" autofocus/>
+								<span class="text-danger" asp-validation-for="Order.Email"/>
+							</div>
+						</div>
 						<!-- Color input -->
 						<div class="form-outline mb-4 row">
 							<div class="col-5 text-end">
-								<label>Enter Color: </label>
+								<label asp-for="Order.Finish"></label>
 							</div>
 							<div class="col-3">
-								<input class="form-control" type="text" place-holder="Color" autofocus/>
-								<span class="text-danger" />
+								<input class="form-control" type="text" asp-for="Order.Finish"/>
+								<span class="text-danger" asp-validation-for="Order.Finish"/>
 							</div>
 						</div>
 						<!-- Dimensions input -->
 						<div class="form-outline mb-4 row">
 							<div class="col-5 text-end">
-								<label>Enter Dimensions: </label>
+								<label asp-for="Order.Length"></label>
 							</div>
 							<div class="col-3">
-								<input class="form-control" type="text" place-holder="Dimensions" autofocus/>
-								<span class="text-danger" />
+								<input class="form-control" type="text" asp-for="Order.Length"/>
+								<span class="text-danger" asp-validation-for="Order.Length"/>
+							</div>
+						</div>
+						<div class="form-outline mb-4 row">
+							<div class="col-5 text-end">
+								<label asp-for="Order.Width"></label>
+							</div>
+							<div class="col-3">
+								<input class="form-control" type="text" asp-for="Order.Width"/>
+								<span class="text-danger" asp-validation-for="Order.Width"/>
+							</div>
+						</div>
+						<div class="form-outline mb-4 row">
+							<div class="col-5 text-end">
+								<label asp-for="Order.Height"></label>
+							</div>
+							<div class="col-3">
+								<input class="form-control" type="text" asp-for="Order.Height"/>
+								<span class="text-danger" asp-validation-for="Order.Height"/>
 							</div>
 						</div>
 						<label class="text-danger">

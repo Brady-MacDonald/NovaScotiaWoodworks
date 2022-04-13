@@ -15,7 +15,7 @@ namespace NovaScotiaWoodworks.Pages.Products
         
         public TablesModel(ApplicationDbContext db)
         {
-            db = _db;
+            _db = db;
             Order = new OrderModel();
         }
 
@@ -31,11 +31,16 @@ namespace NovaScotiaWoodworks.Pages.Products
                 return Page();
             }
 
-            if (!ModelState.IsValid)
+            //Add the username to the order
+            Order.Username = User.Identity.Name;
+            Order.Product = "Table";
+            Order.OrderTime = System.DateTime.Now;
+
+            /*if (!ModelState.IsValid)
             {
-                ModelState.AddModelError("NoAccount", "Invalid input");
+                ModelState.AddModelError("OrderError", "Invalid input");
                 return Page();
-            }
+            }*/
 
             try
             {
@@ -49,7 +54,6 @@ namespace NovaScotiaWoodworks.Pages.Products
             }
 
             return Redirect("/Products/Tables");
-
         }
     }
 }

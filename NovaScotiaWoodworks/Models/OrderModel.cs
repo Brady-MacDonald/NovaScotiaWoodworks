@@ -9,10 +9,16 @@ namespace NovaScotiaWoodworks.Models
         [Required]
         [Display(Name = "User Name")]
         public string Username { get; set; }
+        [Required]
         public string Product { get; set; }
-        public int Quantity { get; set; }   
+        [Required]
+        public string Email { get; set; }
         [Required]
         public DateTime OrderTime { get; set; }
+        public string Finish { get; set; }
+        public string Length { get; set; }
+        public string Width { get; set; }
+        public string Height { get; set; }
 
     }
 }
