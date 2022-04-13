@@ -1,3 +1,4 @@
+using AspNetCoreHero.ToastNotification.Abstractions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,10 +17,12 @@ namespace NovaScotiaWoodworks.Pages.Account
         [BindProperty]
         public UserModel CurrentUser { get; set; }
         private readonly ApplicationDbContext _db;
+        private readonly INotyfService _notyf;
 
-        public EditProfileModel(ApplicationDbContext db)
+        public EditProfileModel(ApplicationDbContext db, INotyfService notyf)
         {
             _db = db;
+            _notyf = notyf;
             CurrentUser = new UserModel();
         }
         public IActionResult OnGet()
@@ -37,6 +40,8 @@ namespace NovaScotiaWoodworks.Pages.Account
 
         public IActionResult OnPost()
         {
+            UserModel dbUser = _db.Users.Find(User.Identity.Name);
+            var OrderList = _db.Orders.Where(x => x.Username == User.Identity.Name);
             try
             {
                 //Updates existing entry based off key
@@ -46,12 +51,12 @@ namespace NovaScotiaWoodworks.Pages.Account
             }
             catch
             {
-                ModelState.AddModelError("EditError", "Unable to update account information");
+                ModelState.AddModelError("EditError", "Unable to update account");
                 return Page();
             }
 
-            //Looks for index action inside same controller
-            return Redirect("/Index");
+            _notyf.Success("Account Updated");
+            return Page();
         }
     }
 }
