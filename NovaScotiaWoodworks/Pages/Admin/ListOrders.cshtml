@@ -1,11 +1,12 @@
 ﻿@page
-@model NovaScotiaWoodworks.Pages.Admin.ListUsersModel
+@model NovaScotiaWoodworks.Pages.Admin.ListOrdersModel
 @{
 }
 
+
 <div>
     <div class="m-3">
-        <h1>All Users List</h1>
+        <h1>All Orders List</h1>
     </div>
 
 	@if(User.Identity.IsAuthenticated)
@@ -17,25 +18,30 @@
                         Username
                     </th>
                     <th>
-                        First Name
+                        Email
                     </th>
                     <th>
-                        Last Name
+                        Product
+                    </th>
+                    <th>
+                        Order Time
                     </th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
                 
-                @foreach(var user in Model.UserList)
+                @foreach(var order in Model.OrderList)
                 {
                     <tr>
-                        <td>@user.Username</td>
-                        <td>@user.FirstName</td>
-                        <td>@user.LastName</td>
+                        <td>@order.Username</td>
+                        <td>@order.Email</td>
+                        <td>@order.Product</td>
+                        <td>@order.OrderTime</td>
+                        
                         <td>
                             <div class="w-75 btn-group" role="group">
-                                <form method="post" asp-page="/Admin/AdminDelete" asp-route-username="@user.Username">
+                                <form method="post" asp-page="/Admin/AdminDelete" asp-route-username="@order.Id">
                                     <button type="submit" class="btn btn-danger mx-2" >
                                         <i class="bi bi-trash3"></i> Delete
                                     </button>

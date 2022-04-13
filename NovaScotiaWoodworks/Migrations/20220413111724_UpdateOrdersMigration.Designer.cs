@@ -10,7 +10,7 @@ using NovaScotiaWoodworks.Data;
 namespace NovaScotiaWoodworks.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220413010725_UpdateOrdersMigration")]
+    [Migration("20220413111724_UpdateOrdersMigration")]
     partial class UpdateOrdersMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,8 +23,10 @@ namespace NovaScotiaWoodworks.Migrations
 
             modelBuilder.Entity("NovaScotiaWoodworks.Models.OrderModel", b =>
                 {
-                    b.Property<string>("Username")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -46,10 +48,14 @@ namespace NovaScotiaWoodworks.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Width")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Username");
+                    b.HasKey("Id");
 
                     b.ToTable("Orders");
                 });

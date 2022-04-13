@@ -36,12 +36,6 @@ namespace NovaScotiaWoodworks.Pages.Products
             Order.Product = "Table";
             Order.OrderTime = System.DateTime.Now;
 
-            /*if (!ModelState.IsValid)
-            {
-                ModelState.AddModelError("OrderError", "Invalid input");
-                return Page();
-            }*/
-
             try
             {
                 _db.Orders.Add(Order);

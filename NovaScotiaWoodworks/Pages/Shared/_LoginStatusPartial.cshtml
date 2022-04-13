@@ -8,7 +8,7 @@
             <div class="dropdown-menu">
 				<a class="dropdown-item" asp-page="/Account/EditProfile">Edit Profile</a>
 				@if (User.Identity.Name == "admin"){
-					<a class="dropdown-item" asp-page="/Admin/Settings">Settings</a>
+					<a class="dropdown-item" asp-page="/Admin/ListOrders">List Orders</a>
 					<a class="dropdown-item" asp-page="/Admin/ListUsers">List Users</a>
 				}
                 
