@@ -8,7 +8,7 @@
 		<div class="row">
 			<div class="col-7">
 				<div>
-					<h2>Mantels</h2>
+					<h2>Available Mantels</h2>
 					<hr/>
 					<p>
 						Steven is dedicated to his craft of creating top end rustic pieces of woodworking <br/>
@@ -19,12 +19,74 @@
 			</div>
 			<div class="col-5 border">
 				<div>
-					<h2>Design</h2>
+					<h2>Custom Design</h2>
 					<hr/>
 					<p>
 						There is a lot of effort that goes into aquiring the best piece of wood. <br/>
 						We go to all areas of Nova Scotia looking for barns 
 					</p>
+				</div>
+				<div class="mb-4 text-center">
+					<form method="post">
+						<div class="text-danger" asp-validation-summary="ModelOnly"></div>
+
+						<!-- Email input -->
+						<div class="form-outline mb-4 row">
+							<div class="col-4 text-end">
+								<label asp-for="Order.Email"></label>
+							</div>
+							<div class="col-5">
+								<input class="form-control" type="text" asp-for="Order.Email" autofocus/>
+								<span class="text-danger" asp-validation-for="Order.Email"/>
+							</div>
+						</div>
+						<!-- Color input -->
+						<div class="form-outline mb-4 row">
+							<div class="col-4 text-end">
+								<label asp-for="Order.Finish"></label>
+							</div>
+							<div class="col-5">
+								<input class="form-control" type="text" asp-for="Order.Finish"/>
+								<span class="text-danger" asp-validation-for="Order.Finish"/>
+							</div>
+						</div>
+						<!-- Dimensions input -->
+						<div class="form-outline mb-4 row">
+							<div class="col-4 text-end">
+								<label asp-for="Order.Length"></label>
+							</div>
+							<div class="col-5">
+								<input class="form-control" type="text" asp-for="Order.Length"/>
+								<span class="text-danger" asp-validation-for="Order.Length"/>
+							</div>
+						</div>
+						<div class="form-outline mb-4 row">
+							<div class="col-4 text-end">
+								<label asp-for="Order.Width"></label>
+							</div>
+							<div class="col-5">
+								<input class="form-control" type="text" asp-for="Order.Width"/>
+								<span class="text-danger" asp-validation-for="Order.Width"/>
+							</div>
+						</div>
+						<div class="form-outline mb-2 row">
+							<div class="col-4 text-end">
+								<label asp-for="Order.Height"></label>
+							</div>
+							<div class="col-5">
+								<input class="form-control" type="text" asp-for="Order.Height"/>
+								<span class="text-danger" asp-validation-for="Order.Height"/>
+							</div>
+						</div>
+						<label class="text-danger mb-1">
+							@Html.ValidationMessage("OrderError")
+						</label>
+						<!-- Submit button -->
+						<div display="flex" justify-content="center">
+							<input type="submit" class="btn btn-primary" value="Submit" onclick="Test()"/>
+						</div>
+						
+					</form>
 				</div>
 			</div>
 		</div>

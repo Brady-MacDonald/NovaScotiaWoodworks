@@ -42,15 +42,15 @@ body {
     width: 20%;
     height: 20%;
 }
-
-
-.mainHeader {
-    /* height: 150px;  #15035e*/
-    text-align: center;
-    padding: 30px;
-    background-color: rgb(88,110,117);
+#welcome-list {
+    list-style: none;
 }
 
+.mainHeader {
+    text-align: center;
+    padding: 40px;
+    background-color: rgb(88,110,117);
+}
 
 /* Navbar Sticky styles
 -------------------------------------------------- */

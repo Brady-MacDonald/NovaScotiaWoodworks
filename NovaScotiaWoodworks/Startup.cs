@@ -24,7 +24,7 @@ namespace NovaScotiaWoodworks
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        // Add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
@@ -38,7 +38,7 @@ namespace NovaScotiaWoodworks
                 //Specifies the access denied page location to be redireted to
                 options.AccessDeniedPath = "/Account/AccessDenied";
                 //Determine how long the cookie is valid for
-                options.ExpireTimeSpan = TimeSpan.FromMinutes(2);
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
             });
 
             //Adds in a security policy
@@ -56,11 +56,11 @@ namespace NovaScotiaWoodworks
                     Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddNotyf(config => 
-            { config.DurationInSeconds = 10; 
+            { 
+                config.DurationInSeconds = 3; 
                 config.IsDismissable = true; 
                 config.Position = NotyfPosition.BottomRight; 
             });
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -73,7 +73,6 @@ namespace NovaScotiaWoodworks
             else
             {
                 app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 

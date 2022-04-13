@@ -2,6 +2,9 @@
 
 namespace NovaScotiaWoodworks.Models
 {
+    /// <summary>
+    /// Stores information on each users account
+    /// </summary>
     public class UserModel
     {
         [Key]

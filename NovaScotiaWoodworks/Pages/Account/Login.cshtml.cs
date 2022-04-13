@@ -8,7 +8,6 @@ using NovaScotiaWoodworks.Models;
 using System;
 using System.Collections.Generic;
 using System.Security.Claims;
-using System.Security.Cryptography;
 using System.Threading.Tasks;
 
 namespace NovaScotiaWoodworks.Pages.Account
@@ -18,7 +17,6 @@ namespace NovaScotiaWoodworks.Pages.Account
         private readonly ApplicationDbContext _db;
         private readonly INotyfService _notyf;
 
-
         [BindProperty]
         public UserModel CurrentUser { get; set; }
 
@@ -27,7 +25,6 @@ namespace NovaScotiaWoodworks.Pages.Account
             _db = db;
             _notyf = notyf;
             CurrentUser = new UserModel();
-            //CurrentUser.Username = "test";
         }
         public void OnGet()
         {
@@ -37,17 +34,16 @@ namespace NovaScotiaWoodworks.Pages.Account
         {
             if (!ModelState.IsValid) 
             {
-                ModelState.AddModelError("NoAccount", "Invalid input");
+                ModelState.AddModelError("AccountError", "Invalid input");
                 return Page();
             }
-            
 
             UserModel dbUser = _db.Users.Find(CurrentUser.Username);
 
             if (dbUser == null)
             {
                 //Unable to locate user account
-                ModelState.AddModelError("NoAccount", "Unable to locate account");
+                ModelState.AddModelError("AccountError", "Unable to locate account");
                 return Page();
             }
 
@@ -58,40 +54,39 @@ namespace NovaScotiaWoodworks.Pages.Account
             {
                 ClaimsPrincipal claimsPrincipal;
 
-                //Apply admin credentials
                 if (CurrentUser.Username == "admin")
-                {
+                {   //Apply admin credentials
                     claimsPrincipal = CreateClaims("true");
                 }
-                else
-                {
-                    claimsPrincipal = CreateClaims("false");
-                }
+                else {claimsPrincipal = CreateClaims("false");}
+
                 var authProperties = new AuthenticationProperties
                 {
+                    //Configures if user should stay signed in on browser close
                     IsPersistent = CurrentUser.RememberMe
                 };
-                //Uses the IAuthenticationService interface
-                //We must implement the event handler 
-                //We let asp.net implement the iterface and use the dependency injection
+                //Uses the IAuthenticationService interface and allow asp.net to implement interface through DI
                 await HttpContext.SignInAsync("AuthenticationCookie", claimsPrincipal, authProperties);
                 _notyf.Success("Signed In");
                 return Redirect("/Index");
             }
-            ModelState.AddModelError("NoAccount", "Incorrect username or password");
+            ModelState.AddModelError("AccountError", "Incorrect password");
             return Page();
         }
-        
+
+        /// <summary>
+        /// Create security context
+        /// </summary>
+        /// <param name="admin">Determines is user receives admin authorization</param>
+        /// <returns></returns>
         public ClaimsPrincipal CreateClaims(string admin)
         {
-            //Create security context
-            //We just need the primary identity
             var claims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.Name, CurrentUser.Username),
-                    new Claim("AccountType", "Business"),
-                    new Claim("Admin", admin),
-                };
+            {
+                new Claim(ClaimTypes.Name, CurrentUser.Username),
+                new Claim("Admin", admin),
+            };
+            
             var identity = new ClaimsIdentity(claims, "AuthenticationCookie");
             ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(identity);
 

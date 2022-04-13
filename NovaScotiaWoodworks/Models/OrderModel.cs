@@ -3,6 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace NovaScotiaWoodworks.Models
 {
+    /// <summary>
+    /// Contains the information on each customers order
+    /// </summary>
     public class OrderModel
     {
         [Key]
