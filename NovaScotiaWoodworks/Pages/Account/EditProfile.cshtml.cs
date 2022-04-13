@@ -6,8 +6,6 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using NovaScotiaWoodworks.Data;
 using NovaScotiaWoodworks.Models;
 using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace NovaScotiaWoodworks.Pages.Account
 {
