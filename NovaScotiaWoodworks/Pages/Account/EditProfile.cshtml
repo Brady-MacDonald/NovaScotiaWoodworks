@@ -25,14 +25,10 @@
 			<input asp-for="CurrentUser.Username" class="form-control"/>
 			<span asp-validation-for="CurrentUser.Username" class="text-danger"></span>
 		</div>
-		<div class="mb-3">
-			<label asp-for="CurrentUser.Password"></label>
-			<input asp-for="CurrentUser.Password" class="form-control"/>
-			<span asp-validation-for="CurrentUser.Password" class="text-danger"></span>
-		</div>
 		<label class="text-danger">
 			@Html.ValidationMessage("EditError")
 		</label>
 		<button type="submit" class="btn btn-primary" style="width:150px">Update</button>
+		<button class="btn btn-secondary" style="width:150px" asp-page="/Account/ChangePassword">Change Password</button>
 	</div>
 </form>
