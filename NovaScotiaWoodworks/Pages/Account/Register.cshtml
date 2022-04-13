@@ -6,10 +6,7 @@
 <div class="container-sm border m-5 text-center" style="padding:20px">
 	
 	<h2>Register</h2>
-	
 	<form method="post">
-		<div class="text-danger" asp-validation-summary="ModelOnly"></div>
-
 		<!-- Username input -->
 		<div class="form-outline mb-4 row">
 			<div class="col-5 text-end">
@@ -17,7 +14,7 @@
 			</div>
 			<div class="col-3">
 				<input class="form-control" type="text" asp-for="CurrentUser.Username" place-holder="Username" autofocus/>
-				<span class="text-danger" asp-validation-for="CurrentUser.Username" />
+				<span class="text-danger" asp-validation-for="CurrentUser.Username"></span>
 			</div>
 		</div>
 
@@ -28,7 +25,7 @@
 			</div>
 			<div class="col-3">
 				<input type="password" asp-for="CurrentUser.Password" class="form-control"/>
-				<span class="text-danger" asp-validation-for="CurrentUser.Password" />	
+				<span class="text-danger" asp-validation-for="CurrentUser.Password"></span>	
 			</div>
 		</div>
 
@@ -39,7 +36,7 @@
 			</div>
 			<div class="col-3">
 				<input type="text" asp-for="CurrentUser.FirstName" class="form-control"/>
-				<span class="text-danger" asp-validation-for="CurrentUser.FirstName" />	
+				<span class="text-danger" asp-validation-for="CurrentUser.FirstName"></span>	
 			</div>
 		</div>
 
@@ -50,15 +47,12 @@
 			</div>
 			<div class="col-3">
 				<input type="text" asp-for="CurrentUser.LastName" class="form-control"/>
-				<span class="text-danger" asp-validation-for="CurrentUser.LastName" />	
+				<span class="text-danger" asp-validation-for="CurrentUser.LastName"></span>	
 			</div>
 		</div>
-
-		<label class="text-danger" asp-for"ErrorMessage">
-			@Html.ValidationMessage("DuplicateUser")
-			@Html.ValidationMessage("Error")
+		<label class="text-danger mb-2">
+			@Html.ValidationMessage("RegisterError")
 		</label>
-
 		<!-- Submit Button -->
 		<div class="mt-2"display="flex" justify-content="center">
 			<input type="submit" class="btn btn-primary" value="Register" />

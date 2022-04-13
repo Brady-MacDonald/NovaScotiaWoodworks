@@ -11,10 +11,9 @@ namespace NovaScotiaWoodworks.Pages.Account
 {
     public class EditProfileModel : PageModel
     {
-        private readonly ApplicationDbContext _db;
-
         [BindProperty]
         public UserModel CurrentUser { get; set; }
+        private readonly ApplicationDbContext _db;
 
         public EditProfileModel(ApplicationDbContext db)
         {

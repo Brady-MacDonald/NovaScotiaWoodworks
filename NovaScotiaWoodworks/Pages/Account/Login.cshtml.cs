@@ -36,7 +36,6 @@ namespace NovaScotiaWoodworks.Pages.Account
         {
             if (!ModelState.IsValid) 
             {
-                ModelState.AddModelError("AccountError", "Invalid input");
                 return Page();
             }
 

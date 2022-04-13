@@ -9,12 +9,10 @@ namespace NovaScotiaWoodworks.Pages.Account
 {
     public class RegisterModel : PageModel
     {
-        private readonly ApplicationDbContext _db;
-        private readonly INotyfService _notyf;
-
-
         [BindProperty]
         public UserModel CurrentUser { get; set; }
+        private readonly ApplicationDbContext _db;
+        private readonly INotyfService _notyf;
 
         public RegisterModel(ApplicationDbContext db, INotyfService notyf)
         {
@@ -31,7 +29,6 @@ namespace NovaScotiaWoodworks.Pages.Account
         {
             if (!ModelState.IsValid)
             {
-                ModelState.AddModelError("Error", "Invalid input");
                 return Page();
             }
 
@@ -45,7 +42,7 @@ namespace NovaScotiaWoodworks.Pages.Account
             }
             catch
             {
-                ModelState.AddModelError("DuplicateUser", "That username is already in use by another user!");
+                ModelState.AddModelError("RegisterError", "That username is already in use by another user!");
                 return Page();
             }
             _notyf.Success("Account Created");

@@ -9,13 +9,11 @@ namespace NovaScotiaWoodworks.Pages.Products
 {
     public class TablesModel : PageModel
     {
+        [BindProperty]
+        public OrderModel Order { get; set; }
         private readonly ApplicationDbContext _db;
         private readonly INotyfService _notyf;
 
-
-        [BindProperty]
-        public OrderModel Order { get; set; }
-        
         public TablesModel(ApplicationDbContext db, INotyfService notyf)
         {
             _db = db;
@@ -50,7 +48,6 @@ namespace NovaScotiaWoodworks.Pages.Products
                 ModelState.AddModelError("OrderError", "Unable to place order");
                 return Page();
             }
-            //TempData["Success"] = "Success";
             _notyf.Success("Order Placed");
             return Page();
         }

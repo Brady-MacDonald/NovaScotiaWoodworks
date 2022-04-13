@@ -10,6 +10,7 @@ namespace NovaScotiaWoodworks.Models
     {
         public string Name { get; set; }
         [Required]
+        [EmailAddress]
         public string Email { get; set; }
         public string Subject { get; set; }
         [Required]

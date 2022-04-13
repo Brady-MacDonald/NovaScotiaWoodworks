@@ -8,12 +8,10 @@ namespace NovaScotiaWoodworks.Pages.Products
 {
     public class MantelsModel : PageModel
     {
-        private readonly ApplicationDbContext _db;
-        private readonly INotyfService _notyf;
-
-
         [BindProperty]
         public OrderModel Order { get; set; }
+        private readonly ApplicationDbContext _db;
+        private readonly INotyfService _notyf;
 
         public MantelsModel(ApplicationDbContext db, INotyfService notyf)
         {
@@ -24,6 +22,7 @@ namespace NovaScotiaWoodworks.Pages.Products
 
         public void OnGet()
         {
+            
         }
 
         public IActionResult OnPost()

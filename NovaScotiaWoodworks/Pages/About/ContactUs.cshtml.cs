@@ -10,9 +10,10 @@ namespace NovaScotiaWoodworks.Pages.About
     [Authorize]
     public class ContactUsModel : PageModel
     {
-        private readonly INotyfService _notyf;
         [BindProperty]
         public ContactModel ContactRequest { get; set; }
+        private readonly INotyfService _notyf;
+
         public ContactUsModel(INotyfService notyf)
         {
             _notyf = notyf;
@@ -27,7 +28,6 @@ namespace NovaScotiaWoodworks.Pages.About
         {
             if (!ModelState.IsValid)
             {
-                _notyf.Error("Invalid");
                 return Page();
             }
             MailMessage mailMessage = new MailMessage();

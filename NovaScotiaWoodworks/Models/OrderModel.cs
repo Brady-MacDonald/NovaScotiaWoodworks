@@ -16,6 +16,7 @@ namespace NovaScotiaWoodworks.Models
         [Required]
         public string Product { get; set; }
         [Required]
+        [EmailAddress]
         public string Email { get; set; }
         [Required]
         public DateTime OrderTime { get; set; }
