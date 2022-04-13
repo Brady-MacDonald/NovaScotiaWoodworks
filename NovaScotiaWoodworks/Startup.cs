@@ -1,3 +1,5 @@
+using AspNetCoreHero.ToastNotification;
+using AspNetCoreHero.ToastNotification.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -52,6 +54,13 @@ namespace NovaScotiaWoodworks
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddNotyf(config => 
+            { config.DurationInSeconds = 10; 
+                config.IsDismissable = true; 
+                config.Position = NotyfPosition.BottomRight; 
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -77,6 +86,8 @@ namespace NovaScotiaWoodworks
             app.UseAuthentication();
             app.UseAuthorization();
 
+            app.UseNotyf();
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();

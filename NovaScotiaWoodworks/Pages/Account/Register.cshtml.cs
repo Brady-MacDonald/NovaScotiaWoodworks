@@ -1,3 +1,4 @@
+using AspNetCoreHero.ToastNotification.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using NovaScotiaWoodworks.AccountManager;
@@ -9,14 +10,16 @@ namespace NovaScotiaWoodworks.Pages.Account
     public class RegisterModel : PageModel
     {
         private readonly ApplicationDbContext _db;
+        private readonly INotyfService _notyf;
+
 
         [BindProperty]
         public UserModel CurrentUser { get; set; }
 
-        public RegisterModel(ApplicationDbContext db)
+        public RegisterModel(ApplicationDbContext db, INotyfService notyf)
         {
-            //Get db context from the dependency injection
             _db = db;
+            _notyf = notyf;
             CurrentUser = new UserModel();
         }
 
@@ -45,7 +48,7 @@ namespace NovaScotiaWoodworks.Pages.Account
                 ModelState.AddModelError("DuplicateUser", "That username is already in use by another user!");
                 return Page();
             }
-
+            _notyf.Success("Account Created");
             return Redirect("/Account/Login");
         }
     }

@@ -1,3 +1,4 @@
+using AspNetCoreHero.ToastNotification.Abstractions;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -15,13 +16,16 @@ namespace NovaScotiaWoodworks.Pages.Account
     public class LoginModel : PageModel
     {
         private readonly ApplicationDbContext _db;
+        private readonly INotyfService _notyf;
+
 
         [BindProperty]
         public UserModel CurrentUser { get; set; }
 
-        public LoginModel(ApplicationDbContext db)
+        public LoginModel(ApplicationDbContext db, INotyfService notyf)
         {
             _db = db;
+            _notyf = notyf;
             CurrentUser = new UserModel();
             //CurrentUser.Username = "test";
         }
@@ -71,7 +75,7 @@ namespace NovaScotiaWoodworks.Pages.Account
                 //We must implement the event handler 
                 //We let asp.net implement the iterface and use the dependency injection
                 await HttpContext.SignInAsync("AuthenticationCookie", claimsPrincipal, authProperties);
-                
+                _notyf.Success("Signed In");
                 return Redirect("/Index");
             }
             ModelState.AddModelError("NoAccount", "Incorrect username or password");

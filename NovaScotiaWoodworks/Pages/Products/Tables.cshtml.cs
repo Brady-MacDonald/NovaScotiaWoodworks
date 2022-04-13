@@ -1,3 +1,4 @@
+using AspNetCoreHero.ToastNotification.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using NovaScotiaWoodworks.Data;
@@ -9,13 +10,16 @@ namespace NovaScotiaWoodworks.Pages.Products
     public class TablesModel : PageModel
     {
         private readonly ApplicationDbContext _db;
+        private readonly INotyfService _notyf;
+
 
         [BindProperty]
         public OrderModel Order { get; set; }
         
-        public TablesModel(ApplicationDbContext db)
+        public TablesModel(ApplicationDbContext db, INotyfService notyf)
         {
             _db = db;
+            _notyf = notyf;
             Order = new OrderModel();
         }
 
@@ -47,6 +51,7 @@ namespace NovaScotiaWoodworks.Pages.Products
                 return Page();
             }
             //TempData["Success"] = "Success";
+            _notyf.Success("Order Placed");
             return Page();
         }
     }
