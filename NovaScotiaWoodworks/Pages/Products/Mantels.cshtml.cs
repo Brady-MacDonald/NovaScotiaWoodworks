@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace NovaScotiaWoodworks.Pages
+namespace NovaScotiaWoodworks.Pages.Products
 {
-    public class ProductsModel : PageModel
+    public class MantelsModel : PageModel
     {
         public void OnGet()
         {

@@ -42,3 +42,27 @@ body {
     width: 20%;
     height: 20%;
 }
+
+.mainHeader {
+    /* height: 150px;  #15035e*/
+    text-align: center;
+    padding: 30px;
+    background-color: rgb(88,110,117);
+}
+
+
+/* Navbar Sticky styles
+-------------------------------------------------- */
+.content {
+    padding: 16px;
+}
+
+.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+.sticky + .content {
+     padding-top: 60px;
+}
