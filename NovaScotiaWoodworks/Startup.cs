@@ -29,10 +29,10 @@ namespace NovaScotiaWoodworks
         {
             services.AddRazorPages();
 
-            services.AddAuthentication("AuthenticationCookie").AddCookie("AuthenticationCookie", options =>
+            services.AddAuthentication(Configuration["Cookie"]).AddCookie(Configuration["Cookie"], options =>
             {
                 //Shows which cookie contains the authentication security context
-                options.Cookie.Name = "AuthenticationCookie";
+                options.Cookie.Name = Configuration["Cookie"];
                 //Specifies the login page location to be redireted to
                 options.LoginPath = "/Account/Login";
                 //Specifies the access denied page location to be redireted to

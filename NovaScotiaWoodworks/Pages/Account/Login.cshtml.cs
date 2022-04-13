@@ -2,6 +2,7 @@ using AspNetCoreHero.ToastNotification.Abstractions;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Configuration;
 using NovaScotiaWoodworks.AccountManager;
 using NovaScotiaWoodworks.Data;
 using NovaScotiaWoodworks.Models;
@@ -14,16 +15,17 @@ namespace NovaScotiaWoodworks.Pages.Account
 {
     public class LoginModel : PageModel
     {
+        [BindProperty]
+        public UserModel CurrentUser { get; set; }
+        private readonly IConfiguration _config;
         private readonly ApplicationDbContext _db;
         private readonly INotyfService _notyf;
 
-        [BindProperty]
-        public UserModel CurrentUser { get; set; }
-
-        public LoginModel(ApplicationDbContext db, INotyfService notyf)
+        public LoginModel(ApplicationDbContext db, INotyfService notyf, IConfiguration config)
         {
             _db = db;
             _notyf = notyf;
+            _config = config;
             CurrentUser = new UserModel();
         }
         public void OnGet()
@@ -58,7 +60,7 @@ namespace NovaScotiaWoodworks.Pages.Account
                 {   //Apply admin credentials
                     claimsPrincipal = CreateClaims("true");
                 }
-                else {claimsPrincipal = CreateClaims("false");}
+                else { claimsPrincipal = CreateClaims("false"); }
 
                 var authProperties = new AuthenticationProperties
                 {
@@ -66,7 +68,7 @@ namespace NovaScotiaWoodworks.Pages.Account
                     IsPersistent = CurrentUser.RememberMe
                 };
                 //Uses the IAuthenticationService interface and allow asp.net to implement interface through DI
-                await HttpContext.SignInAsync("AuthenticationCookie", claimsPrincipal, authProperties);
+                await HttpContext.SignInAsync(_config["Cookie"], claimsPrincipal, authProperties);
                 _notyf.Success("Signed In");
                 return Redirect("/Index");
             }
@@ -87,7 +89,7 @@ namespace NovaScotiaWoodworks.Pages.Account
                 new Claim("Admin", admin),
             };
             
-            var identity = new ClaimsIdentity(claims, "AuthenticationCookie");
+            var identity = new ClaimsIdentity(claims, _config["Cookie"]);
             ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(identity);
 
             return claimsPrincipal;
