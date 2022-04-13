@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace NovaScotiaWoodworks.Pages.Account
 {
+    [Authorize]
     public class EditProfileModel : PageModel
     {
         [BindProperty]

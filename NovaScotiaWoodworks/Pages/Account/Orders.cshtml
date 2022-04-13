@@ -1,0 +1,47 @@
+﻿@page
+@model NovaScotiaWoodworks.Pages.Account.OrdersModel
+@{
+}
+<div>
+    <div class="m-4">
+        <h1>All Orders List</h1>
+    </div>
+
+	@if(User.Identity.IsAuthenticated)
+    {
+        <table class="table table-bordered table-striped" style="width:%100">
+            <thead>
+                <tr>
+                    <th>
+                        Username
+                    </th>
+                    <th>
+                        Email
+                    </th>
+                    <th>
+                        Product
+                    </th>
+                    <th>
+                        Order Time
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                @foreach(var order in Model.OrderList)
+                {
+                    <tr>
+                        <td>@order.Username</td>
+                        <td>@order.Email</td>
+                        <td>@order.Product</td>
+                        <td>@order.OrderTime</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No contacts to display</p>
+    }
+</div>
