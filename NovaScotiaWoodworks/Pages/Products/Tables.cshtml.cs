@@ -46,8 +46,8 @@ namespace NovaScotiaWoodworks.Pages.Products
                 ModelState.AddModelError("OrderError", "Unable to place order");
                 return Page();
             }
-
-            return Redirect("/Products/Tables");
+            //TempData["Success"] = "Success";
+            return Page();
         }
     }
 }

@@ -7,11 +7,11 @@ using NovaScotiaWoodworks.Models;
 namespace NovaScotiaWoodworks.Pages.Admin
 {
     [Authorize(Policy = "AdminOnly")]
-    public class AdminDeleteModel : PageModel
+    public class DeleteUserModel : PageModel
     {
         private readonly ApplicationDbContext _db;
 
-		public AdminDeleteModel(ApplicationDbContext db)
+		public DeleteUserModel(ApplicationDbContext db)
 		{
             _db = db;
 		}
@@ -27,8 +27,15 @@ namespace NovaScotiaWoodworks.Pages.Admin
                 //Unable to locate user account
                 return Redirect("Index");
 
-            _db.Users.Remove(dbUser);
-            _db.SaveChanges();
+            try
+            {
+                _db.Users.Remove(dbUser);
+                _db.SaveChanges();
+            }
+            catch
+            {
+
+            }
 
             return Redirect("/Admin/ListUsers");
         }
