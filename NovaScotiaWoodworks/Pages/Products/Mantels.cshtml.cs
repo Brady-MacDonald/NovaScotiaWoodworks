@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using NovaScotiaWoodworks.Data;
 using NovaScotiaWoodworks.Models;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace NovaScotiaWoodworks.Pages.Products
 {
@@ -10,6 +12,8 @@ namespace NovaScotiaWoodworks.Pages.Products
     {
         [BindProperty]
         public OrderModel Order { get; set; }
+        public bool DisbaleClassic { get; set; }
+        public bool DisbaleModern { get; set; }
         private readonly ApplicationDbContext _db;
         private readonly INotyfService _notyf;
 
@@ -22,7 +26,18 @@ namespace NovaScotiaWoodworks.Pages.Products
 
         public void OnGet()
         {
-            
+            OrderModel orderClassicMantel = _db.Orders.FirstOrDefault(x => x.Product == "Classic Mantel");
+            if (orderClassicMantel != null)
+            {
+                ModelState.AddModelError("ClassicMantelPurchased", " (SOLD)");
+                DisbaleClassic = true;
+            }
+            OrderModel orderModernMantel = _db.Orders.FirstOrDefault(x => x.Product == "Modern Mantel");
+            if (orderModernMantel != null)
+            {
+                ModelState.AddModelError("ModernMantelPurchased", " (SOLD)");
+                DisbaleModern = true;
+            }
         }
 
         public IActionResult OnPost()
@@ -35,8 +50,9 @@ namespace NovaScotiaWoodworks.Pages.Products
 
             //Add the username to the order
             Order.Username = User.Identity.Name;
-            Order.Product = "Mantel";
+            Order.Product = "Custom Mantel";
             Order.OrderTime = System.DateTime.Now;
+            Order.Status = "Order Placed";
 
             try
             {

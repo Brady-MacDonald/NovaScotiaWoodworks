@@ -46,8 +46,6 @@ namespace NovaScotiaWoodworks
             {
                 options.AddPolicy("AdminOnly",
                     policy => policy.RequireClaim("Admin", "true"));
-                options.AddPolicy("MustBeBusiness",
-                    policy => policy.RequireClaim("AccountType", "Business"));
             });
 
             //Configure db with default connection string for local sql server

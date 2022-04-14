@@ -39,12 +39,19 @@ namespace NovaScotiaWoodworks.Pages.Account
         public IActionResult OnPost()
         {
             UserModel dbUser = _db.Users.Find(User.Identity.Name);
-            var OrderList = _db.Orders.Where(x => x.Username == User.Identity.Name);
+            if(dbUser == null)
+            {
+                ModelState.AddModelError("EditError", "Unable to locate account");
+                return Page();
+            }
+
             try
             {
-                //Updates existing entry based off key
+                CurrentUser.Password = dbUser.Password;
+                CurrentUser.Username = dbUser.Username;
+                
+                //Unable to make changes to database due to db context being shared by multiple requests
                 _db.Users.Update(CurrentUser);
-                //Goes to db to push changes
                 _db.SaveChanges();
             }
             catch
