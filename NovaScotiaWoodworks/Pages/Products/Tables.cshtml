@@ -10,20 +10,87 @@
 				<div>
 					<h2>Available Tables</h2>
 					<hr/>
+					<h4 class="text-center">Browse our selection of available tables</h4>
 					<p>
-						Steven is dedicated to his craft of creating top end rustic pieces of woodworking <br/>
+						Nova Scotia Woodworks is dedicated to the craft of creating top end rustic pieces of woodworking <br/>
 						He has years of experience in the industry and is always improving his skills <br/>
-						Send him an
+						
 					</p>
 				</div>
+				<!-- Coffee Table Section -->
+				<div class="row m-2 border-top">
+					<h3 class-"text-center">Coffe Table @Html.ValidationMessage("CoffeeTablePurchased")</h3>
+					<div class="col-3 text-end">
+						<p>
+							Brown finish <br/><br/>
+							Dimensions: 8x12x1 (LxWxH)<br/><br/>
+							Cost: $275
+						</p>
+					</div>
+					<div class="col-9">
+						<div class="imgcontainer mb-3" display="flex" justify-content="center">
+							<img class="imgMantel" src="/images/CoffeeTable.jpg" alt="Coffee Table">
+						</div>
+					</div>
+					
+					<!-- Purchase pre-made Coffee Table form -->
+					<form method="post" asp-page="/Products/PurchaseTable" asp-route-purchase="Coffee Table">
+						<div class="text-danger" asp-validation-summary="ModelOnly"></div>
+
+						<div class="col-6 mb-3">
+							<label asp-for="Order.Email"></label>
+							<input asp-for="Order.Email" class="form-control"/>
+							<span asp-validation-for="Order.Email" class="text-danger"></span>
+
+							<button type="submit" class="btn btn-primary mt-2" >
+								<i class="bi bi-wallet-fill"></i> Purchase
+							</button>
+						</div>
+						
+                    </form>
+				</div>
+
+				<!-- Square Table Section -->
+				<div class="row m-2 border-top">
+					<h3 class-"text-center">Square Table @Html.ValidationMessage("SquareTablePurchased")</h3>
+					<div class="col-3 text-end">
+						<p>
+							Brown finish <br/><br/>
+							Dimensions: 4x4x4 (LxWxH)<br/><br/>
+							Cost: $350
+						</p>
+					</div>
+					<div class="col-9">
+						<div class="imgcontainer mb-3" display="flex" justify-content="center">
+							<img class="imgMantel" src="/images/SquareTable.jpg" alt="Square Table">
+						</div>
+					</div>
+					
+					<!-- Purchase pre-made Square Table form -->
+					<form method="post" asp-page="/Products/PurchaseTable" asp-route-purchase="Square Table">
+						<div class="text-danger" asp-validation-summary="ModelOnly"></div>
+
+						<div class="col-6 mb-3">
+							<label asp-for="Order.Email"></label>
+							<input asp-for="Order.Email" class="form-control"/>
+							<span asp-validation-for="Order.Email" class="text-danger"></span>
+						</div>
+						<button type="submit" class="btn btn-primary" >
+							<i class="bi bi-wallet-fill"></i> Purchase
+                        </button>
+                    </form>
+				</div>
 			</div>
-			<div class="col-5 border">
+
+			<!-- Custom Order Section-->
+			<div class="col-5 border" id="customOrder">
 				<div>
 					<h2>Custom Design</h2>
 					<hr/>
+					<h4 class="mb-2 text-center">Unable to find the perfect table?</h4>
 					<p>
-						Create a custom design that fits your requirements<br/>
-						Customize the dimensions and color to become your own interior decorator<br/><br/>
+						Create a design that fits your requirements<br/>
+						Customize the dimensions and color to become your own interior designer<br/>
 					</p>
 				</div>
 				<div class="mb-4 text-center">

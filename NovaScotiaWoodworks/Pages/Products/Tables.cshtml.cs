@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using NovaScotiaWoodworks.Data;
 using NovaScotiaWoodworks.Models;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace NovaScotiaWoodworks.Pages.Products
@@ -23,6 +24,17 @@ namespace NovaScotiaWoodworks.Pages.Products
 
         public void OnGet()
         {
+            OrderModel orderCoffeeTable = _db.Orders.FirstOrDefault(x => x.Product == "Coffee Table");
+            if (orderCoffeeTable != null)
+            {
+                ModelState.AddModelError("CoffeeTablePurchased", " (SOLD)");
+            }
+
+            OrderModel orderSquareTable = _db.Orders.FirstOrDefault(x => x.Product == "Square Table");
+            if (orderSquareTable != null)
+            {
+                ModelState.AddModelError("SquareTablePurchased", " (SOLD)");
+            }
         }
 
         public IActionResult OnPost()
@@ -35,7 +47,7 @@ namespace NovaScotiaWoodworks.Pages.Products
 
             //Add the username to the order
             Order.Username = User.Identity.Name;
-            Order.Product = "Table";
+            Order.Product = "Custome Table";
             Order.OrderTime = System.DateTime.Now;
 
             try

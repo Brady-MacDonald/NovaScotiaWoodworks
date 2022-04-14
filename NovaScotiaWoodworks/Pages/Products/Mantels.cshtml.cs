@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using NovaScotiaWoodworks.Data;
 using NovaScotiaWoodworks.Models;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace NovaScotiaWoodworks.Pages.Products
 {
@@ -22,7 +24,11 @@ namespace NovaScotiaWoodworks.Pages.Products
 
         public void OnGet()
         {
-            
+            OrderModel order = _db.Orders.FirstOrDefault(x => x.Product == "Classic Mantel");
+            if (order != null)
+            {
+                ModelState.AddModelError("MantelPurchased", " (SOLD)");
+            }
         }
 
         public IActionResult OnPost()
@@ -35,7 +41,7 @@ namespace NovaScotiaWoodworks.Pages.Products
 
             //Add the username to the order
             Order.Username = User.Identity.Name;
-            Order.Product = "Mantel";
+            Order.Product = "Custom Mantel";
             Order.OrderTime = System.DateTime.Now;
 
             try

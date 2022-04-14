@@ -10,23 +10,90 @@
 				<div>
 					<h2>Available Mantels</h2>
 					<hr/>
+					<h4 class="text-center">Browse our selection of available mantels</h4>
 					<p>
-						Steven is dedicated to his craft of creating top end rustic pieces of woodworking <br/>
-						He has years of experience in the industry and is always improving his skills <br/>
-						Send him an
+						Featured in the 2019 QEII DreamHome these mantels are highly requested <br/>
+						Nova Scotia Woodworks offers high quality mantels made from barn beams <br/>
+
 					</p>
 				</div>
+
+				<!-- Classic Mantel section -->
+				<div class="row m-2 border-top">
+					<h3 class-"text-center">Classic Mantel @Html.ValidationMessage("MantelPurchased")</h3>
+					<div class="col-3 text-end">
+						<p>
+							Clear finish <br/><br/>
+							Dimensions: 6x3x2 (LxWxH)<br/><br/>
+							Cost: $200
+						</p>
+					</div>
+					<div class="col-9">
+						<div class="imgcontainer mb-3" display="flex" justify-content="center">
+							<img class="imgMantel" src="/images/Mantel.jpg" alt="Mantel">
+						</div>
+					</div>
+					
+					<!-- Purchase pre-made mantel form -->
+					<form method="post" asp-page="/Products/PurchaseMantel" asp-route-purchase="Classic Mantel">
+						<div class="text-danger" asp-validation-summary="ModelOnly"></div>
+
+						<div class="col-6 mb-3">
+							<label asp-for="Order.Email"></label>
+							<input asp-for="Order.Email" class="form-control"/>
+							<span asp-validation-for="Order.Email" class="text-danger"></span>
+						</div>
+						<button type="submit" class="btn btn-primary" >
+							<i class="bi bi-wallet-fill"></i> Purchase
+                        </button>
+                    </form>
+				</div>
+
+				<!-- Modern Fireplace section -->
+				<div class="row m-2 border-top">
+					<h3 class-"text-center">Modern Fireplace Molding @Html.ValidationMessage("MantelPurchased")</h3>
+					<div class="col-3 text-end">
+						<p>
+							Clear finish <br/><br/>
+							Dimensions: 6x3x2 (LxWxH)<br/><br/>
+							Cost: $200
+						</p>
+					</div>
+					<div class="col-9">
+						<div class="imgcontainer mb-3" display="flex" justify-content="center">
+							<img class="imgMantel" src="/images/Mantel.jpg" alt="Mantel">
+						</div>
+					</div>
+					
+					<!-- Purchase pre-made mantel form -->
+					<form method="post" asp-page="/Products/PurchaseMantel" asp-route-purchase="Classic Mantel">
+						<div class="text-danger" asp-validation-summary="ModelOnly"></div>
+
+						<div class="col-6 mb-3">
+							<label asp-for="Order.Email"></label>
+							<input asp-for="Order.Email" class="form-control"/>
+							<span asp-validation-for="Order.Email" class="text-danger"></span>
+						</div>
+						<button type="submit" class="btn btn-primary" >
+							<i class="bi bi-wallet-fill"></i> Purchase
+                        </button>
+                    </form>
+				</div>
 			</div>
-			<div class="col-5 border">
+
+			<!-- Custom Design Order -->
+			<div class="col-5 border" id="customOrder">
 				<div>
 					<h2>Custom Design</h2>
 					<hr/>
+					<h4 class="mb-2 text-center">Unable to find the perfect table?</h4>
 					<p>
 						There is a lot of effort that goes into aquiring the best piece of wood. <br/>
 						We go to all areas of Nova Scotia looking for barns 
 					</p>
 				</div>
 				<div class="mb-4 text-center">
+					<!-- Purchase custom mantel form -->
 					<form method="post">
 						<div class="text-danger" asp-validation-summary="ModelOnly"></div>
 

@@ -34,6 +34,10 @@ body {
 
 /* Person styles
 -------------------------------------------------- */
+.test {
+    border-color: #fdf6e3;
+}
+
 .imglogin {
     /* center image */
     display: block;
@@ -42,13 +46,52 @@ body {
     width: 20%;
     height: 20%;
 }
+
+#test{
+}
+
+.imgHome {
+    /* center image */
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    height: 50%;
+}
+.imgHome1 {
+    /* center image */
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    height: 50%;
+}
+
+.imgAgedWood {
+    /* center image */
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    height: 100%;
+}
+
+.imgMantel {
+    /* center image */
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 75%;
+    height: 75%;
+}
+
 #welcome-list {
     list-style: none;
 }
 
 .mainHeader {
     text-align: center;
-    padding: 40px;
+    padding: 50px;
     background-color: rgb(88,110,117);
 }
 
@@ -64,6 +107,28 @@ body {
     width: 100%;
 }
 
+.stickyOrder {
+    position: fixed;
+    top: 0;
+    float: left;
+}
+
+.fixedElement {
+    background-color: #c0c0c0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+}
+
 .sticky + .content {
      padding-top: 60px;
+}
+
+#customOrder{
+    height: max-content;
+}
+
+#inputForm {
+    height: max-content;
 }
