@@ -10,7 +10,7 @@ using NovaScotiaWoodworks.Data;
 namespace NovaScotiaWoodworks.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220413111724_UpdateOrdersMigration")]
+    [Migration("20220414102256_UpdateOrdersMigration")]
     partial class UpdateOrdersMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -46,6 +46,9 @@ namespace NovaScotiaWoodworks.Migrations
 
                     b.Property<string>("Product")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Status")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Username")

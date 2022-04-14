@@ -28,6 +28,7 @@ namespace NovaScotiaWoodworks.Pages.Products
             Order.Username = User.Identity.Name;
             Order.Product = purchase;
             Order.OrderTime = System.DateTime.Now;
+            Order.Status = "Order Placed";
 
             if (Order.Email == null)
             {

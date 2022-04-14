@@ -29,13 +29,13 @@ namespace NovaScotiaWoodworks.Pages.Products
             OrderModel orderClassicMantel = _db.Orders.FirstOrDefault(x => x.Product == "Classic Mantel");
             if (orderClassicMantel != null)
             {
-                ModelState.AddModelError("MantelPurchased", " (SOLD)");
+                ModelState.AddModelError("ClassicMantelPurchased", " (SOLD)");
                 DisbaleClassic = true;
             }
             OrderModel orderModernMantel = _db.Orders.FirstOrDefault(x => x.Product == "Modern Mantel");
             if (orderModernMantel != null)
             {
-                ModelState.AddModelError("MantelPurchased", " (SOLD)");
+                ModelState.AddModelError("ModernMantelPurchased", " (SOLD)");
                 DisbaleModern = true;
             }
         }
@@ -52,6 +52,7 @@ namespace NovaScotiaWoodworks.Pages.Products
             Order.Username = User.Identity.Name;
             Order.Product = "Custom Mantel";
             Order.OrderTime = System.DateTime.Now;
+            Order.Status = "Order Placed";
 
             try
             {

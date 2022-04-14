@@ -1,0 +1,65 @@
+﻿@page
+@model NovaScotiaWoodworks.Pages.Admin.UpdateOrderModel
+@{
+}
+
+
+<table class="table table-bordered table-striped" style="width:%100">
+            <thead>
+                <tr>
+                    <th>
+                        Username
+                    </th>
+                    <th>
+                        Email
+                    </th>
+                    <th>
+                        Product
+                    </th>
+                    <th>
+                        Status
+                    </th>
+                    <th>
+                        Order Time
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                    <tr>
+                        <td>
+                            <div class="mb-3">
+			                    <input asp-for="CurrentOrder.Username" class="form-control"/>
+			                    <span asp-validation-for="CurrentOrder.Username" class="text-danger"></span>
+		                    </div>
+                        <td>
+                            <div class="mb-3">
+			                    <input asp-for="CurrentOrder.Email" class="form-control"/>
+			                    <span asp-validation-for="CurrentOrder.Email" class="text-danger"></span>
+		                    </div>
+                        </td>
+                        <td>
+                            <div class="mb-3">
+			                    <input asp-for="CurrentOrder.Product" class="form-control"/>
+			                    <span asp-validation-for="CurrentOrder.Product" class="text-danger"></span>
+		                    </div>
+                        </td>
+                        <td>
+                            <div class="mb-3">
+                                <input class="form-control" type="text" asp-for="CurrentOrder.Status"/>
+			                    <span asp-validation-for="CurrentOrder.Product" class="text-danger"></span>
+		                    </div>
+                        </td>
+                        <td>
+                            <div class="mb-3">
+                                <input class="form-control" type="text" asp-for="CurrentOrder.OrderTime"/>
+			                    <span asp-validation-for="CurrentOrder.OrderTime" class="text-danger"></span>
+		                    </div>
+                        </td>
+                        
+                        <td>
+                            <a class="btn btn-secondary" asp-page="/Admin/ListOrders">Back</a>
+                        </td>
+                    </tr>
+            </tbody>
+        </table>

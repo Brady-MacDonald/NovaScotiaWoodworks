@@ -53,6 +53,7 @@ namespace NovaScotiaWoodworks.Pages.Products
             Order.Username = User.Identity.Name;
             Order.Product = "Custome Table";
             Order.OrderTime = System.DateTime.Now;
+            Order.Status = "Order Placed";
 
             try
             {

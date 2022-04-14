@@ -40,8 +40,8 @@ namespace NovaScotiaWoodworks.Pages.Account
 
         public IActionResult OnPost()
         {
-            UserModel dbUser = _db.Users.Find(User.Identity.Name);
-            var OrderList = _db.Orders.Where(x => x.Username == User.Identity.Name);
+            //UserModel dbUser = _db.Users.Find(User.Identity.Name);
+            //var OrderList = _db.Orders.Where(x => x.Username == User.Identity.Name);
             try
             {
                 //Updates existing entry based off key

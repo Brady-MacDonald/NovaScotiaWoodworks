@@ -20,6 +20,7 @@ namespace NovaScotiaWoodworks.Models
         public string Email { get; set; }
         [Required]
         public DateTime OrderTime { get; set; }
+        public string Status { get; set; }
         public string Finish { get; set; }
         public string Length { get; set; }
         public string Width { get; set; }
