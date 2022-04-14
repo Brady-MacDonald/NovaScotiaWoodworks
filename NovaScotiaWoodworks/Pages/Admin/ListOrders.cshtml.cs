@@ -1,3 +1,4 @@
+using AspNetCoreHero.ToastNotification.Abstractions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -10,10 +11,9 @@ namespace NovaScotiaWoodworks.Pages.Admin
     [Authorize(Policy = "AdminOnly")]
     public class ListOrdersModel : PageModel
     {
-        private readonly ApplicationDbContext _db;
-
         [BindProperty]
         public IEnumerable<OrderModel> OrderList { get; set; }
+        private readonly ApplicationDbContext _db;
 
         public ListOrdersModel(ApplicationDbContext db)
         {

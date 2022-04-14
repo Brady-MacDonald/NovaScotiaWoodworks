@@ -1,3 +1,4 @@
+using AspNetCoreHero.ToastNotification.Abstractions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -10,10 +11,12 @@ namespace NovaScotiaWoodworks.Pages.Admin
     public class DeleteOrderModel : PageModel
     {
         private readonly ApplicationDbContext _db;
+        private readonly INotyfService _notyf;
 
-        public DeleteOrderModel(ApplicationDbContext db)
+        public DeleteOrderModel(ApplicationDbContext db, INotyfService notyf)
         {
             _db = db;
+            _notyf = notyf;
         }
         public void OnGet()
         {
@@ -24,8 +27,10 @@ namespace NovaScotiaWoodworks.Pages.Admin
             OrderModel dbOrder = _db.Orders.Find(id);
 
             if (dbOrder == null)
-                //Unable to locate user account
-                return Redirect("/Index");
+            {
+                _notyf.Error("Unable to locate order");
+                return Redirect("/Admin/ListOrders");
+            }
 
             try
             {
@@ -34,9 +39,10 @@ namespace NovaScotiaWoodworks.Pages.Admin
             }
             catch
             {
-
+                _notyf.Error("Error deleting order");
             }
 
+            _notyf.Success("Order Deleted");
             return Redirect("/Admin/ListOrders");
         }
     }

@@ -27,6 +27,7 @@
                     <th>
                         Order Time
                     </th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -39,6 +40,13 @@
                         <td>@order.Product</td>
                         <td>@order.Status</td>
                         <td>@order.OrderTime</td>
+                        <td>
+                            <form method="post" asp-page="/Account/CancelOrder" asp-route-id="@order.Id">
+                                <button type="submit" class="btn btn-danger mx-2" >
+                                    <i class="bi bi-x-circle"></i> Cancel
+                                </button>
+                            </form>
+                        </td>
                     </tr>
                 }
             </tbody>

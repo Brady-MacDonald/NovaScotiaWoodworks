@@ -1,11 +1,13 @@
 using AspNetCoreHero.ToastNotification.Abstractions;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Threading.Tasks;
 
 namespace NovaScotiaWoodworks.Pages.Account
 {
+    [Authorize]
     public class LogoutModel : PageModel
     {
         private readonly INotyfService _notyf;

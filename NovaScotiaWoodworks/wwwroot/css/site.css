@@ -34,9 +34,6 @@ body {
 
 /* Person styles
 -------------------------------------------------- */
-.test {
-    border-color: #fdf6e3;
-}
 
 .imglogin {
     /* center image */
@@ -45,9 +42,6 @@ body {
     margin-right: auto;
     width: 20%;
     height: 20%;
-}
-
-#test{
 }
 
 .imgHome {
@@ -97,20 +91,10 @@ body {
 
 /* Navbar Sticky styles
 -------------------------------------------------- */
-.content {
-    padding: 16px;
-}
-
 .sticky {
     position: fixed;
     top: 0;
     width: 100%;
-}
-
-.stickyOrder {
-    position: fixed;
-    top: 0;
-    float: left;
 }
 
 .fixedElement {
@@ -121,14 +105,6 @@ body {
     z-index: 100;
 }
 
-.sticky + .content {
-     padding-top: 60px;
-}
-
 #customOrder{
-    height: max-content;
-}
-
-#inputForm {
     height: max-content;
 }
