@@ -43,7 +43,7 @@
 							<input asp-for="Order.Email" class="form-control"/>
 							<span asp-validation-for="Order.Email" class="text-danger"></span>
 						</div>
-						<button type="submit" class="btn btn-primary" >
+						<button type="submit" class="btn btn-primary" disabled="@(Model.DisbaleClassic ? "disabled" : null)">
 							<i class="bi bi-wallet-fill"></i> Purchase
                         </button>
                     </form>
@@ -61,12 +61,12 @@
 					</div>
 					<div class="col-9">
 						<div class="imgcontainer mb-3" display="flex" justify-content="center">
-							<img class="imgMantel" src="/images/Mantel.jpg" alt="Mantel">
+							<img class="imgMantel" src="/images/ModernMantel.jpg" alt="Mantel">
 						</div>
 					</div>
 					
 					<!-- Purchase pre-made mantel form -->
-					<form method="post" asp-page="/Products/PurchaseMantel" asp-route-purchase="Classic Mantel">
+					<form method="post" asp-page="/Products/PurchaseMantel" asp-route-purchase="Modern Mantel">
 						<div class="text-danger" asp-validation-summary="ModelOnly"></div>
 
 						<div class="col-6 mb-3">
@@ -74,7 +74,7 @@
 							<input asp-for="Order.Email" class="form-control"/>
 							<span asp-validation-for="Order.Email" class="text-danger"></span>
 						</div>
-						<button type="submit" class="btn btn-primary" >
+						<button type="submit" class="btn btn-primary" disabled="@(Model.DisbaleModern ? "disabled" : null)">
 							<i class="bi bi-wallet-fill"></i> Purchase
                         </button>
                     </form>

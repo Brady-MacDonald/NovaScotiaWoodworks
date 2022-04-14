@@ -12,6 +12,8 @@ namespace NovaScotiaWoodworks.Pages.Products
     {
         [BindProperty]
         public OrderModel Order { get; set; }
+        public bool DisableSquare { get; set; }
+        public bool DisableCoffee { get; set; }
         private readonly ApplicationDbContext _db;
         private readonly INotyfService _notyf;
 
@@ -28,12 +30,14 @@ namespace NovaScotiaWoodworks.Pages.Products
             if (orderCoffeeTable != null)
             {
                 ModelState.AddModelError("CoffeeTablePurchased", " (SOLD)");
+                DisableCoffee = true;
             }
 
             OrderModel orderSquareTable = _db.Orders.FirstOrDefault(x => x.Product == "Square Table");
             if (orderSquareTable != null)
             {
                 ModelState.AddModelError("SquareTablePurchased", " (SOLD)");
+                DisableSquare = true;
             }
         }
 

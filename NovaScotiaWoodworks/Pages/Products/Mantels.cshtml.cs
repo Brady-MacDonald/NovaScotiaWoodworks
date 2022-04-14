@@ -12,6 +12,8 @@ namespace NovaScotiaWoodworks.Pages.Products
     {
         [BindProperty]
         public OrderModel Order { get; set; }
+        public bool DisbaleClassic { get; set; }
+        public bool DisbaleModern { get; set; }
         private readonly ApplicationDbContext _db;
         private readonly INotyfService _notyf;
 
@@ -24,10 +26,17 @@ namespace NovaScotiaWoodworks.Pages.Products
 
         public void OnGet()
         {
-            OrderModel order = _db.Orders.FirstOrDefault(x => x.Product == "Classic Mantel");
-            if (order != null)
+            OrderModel orderClassicMantel = _db.Orders.FirstOrDefault(x => x.Product == "Classic Mantel");
+            if (orderClassicMantel != null)
             {
                 ModelState.AddModelError("MantelPurchased", " (SOLD)");
+                DisbaleClassic = true;
+            }
+            OrderModel orderModernMantel = _db.Orders.FirstOrDefault(x => x.Product == "Modern Mantel");
+            if (orderModernMantel != null)
+            {
+                ModelState.AddModelError("MantelPurchased", " (SOLD)");
+                DisbaleModern = true;
             }
         }
 
