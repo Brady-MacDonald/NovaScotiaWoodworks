@@ -48,7 +48,8 @@ namespace NovaScotiaWoodworks.Pages.Account
                 return Page();
             }
 
-            string hashedPassword = PasswordHash.GetStringSha256Hash(CurrentUser.Password);
+            //Get password hash with salt
+            string hashedPassword = PasswordHash.GetStringSha256Hash(CurrentUser.Password, dbUser.Salt);
 
             //Verify the credentials
             if (CurrentUser.Username == dbUser.Username && hashedPassword == dbUser.Password)

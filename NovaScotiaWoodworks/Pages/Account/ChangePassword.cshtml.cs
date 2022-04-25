@@ -16,7 +16,7 @@ namespace NovaScotiaWoodworks.Pages.Account
         public UserModel CurrentUser { get; set; }
         private readonly ApplicationDbContext _db;
         private readonly INotyfService _notyf;
-
+        private readonly int _saltSize = 32;
         public ChangePasswordModel(ApplicationDbContext db, INotyfService notyf)
         {
             _db = db;
@@ -40,7 +40,7 @@ namespace NovaScotiaWoodworks.Pages.Account
             CurrentUser = _db.Users.Find(User.Identity.Name);
 
             //Convert the user entered password into its hash
-            string currentPasswordHash = PasswordHash.GetStringSha256Hash(ChangePassword.CurrentPassword);
+            string currentPasswordHash = PasswordHash.GetStringSha256Hash(ChangePassword.CurrentPassword, CurrentUser.Salt);
 
             if(CurrentUser.Password != currentPasswordHash)
             {
@@ -56,8 +56,10 @@ namespace NovaScotiaWoodworks.Pages.Account
 
             //User has confirmed old password and entered matching new password
             //Proceed with updating the stored password in db
-            string newPasswordHash = PasswordHash.GetStringSha256Hash(ChangePassword.NewPassword);
+            string newSalt = PasswordHash.CreateSalt(_saltSize);
+            string newPasswordHash = PasswordHash.GetStringSha256Hash(ChangePassword.NewPassword, newSalt);
             CurrentUser.Password = newPasswordHash;
+            CurrentUser.Salt = newSalt;
             try
             {
                 _db.Users.Update(CurrentUser);

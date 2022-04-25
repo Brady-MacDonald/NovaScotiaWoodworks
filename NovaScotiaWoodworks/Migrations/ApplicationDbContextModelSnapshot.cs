@@ -79,6 +79,9 @@ namespace NovaScotiaWoodworks.Migrations
                     b.Property<bool>("RememberMe")
                         .HasColumnType("bit");
 
+                    b.Property<string>("Salt")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Username");
 
                     b.ToTable("Users");

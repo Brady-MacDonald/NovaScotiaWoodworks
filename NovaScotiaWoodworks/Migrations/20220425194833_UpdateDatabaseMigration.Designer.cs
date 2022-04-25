@@ -10,8 +10,8 @@ using NovaScotiaWoodworks.Data;
 namespace NovaScotiaWoodworks.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220414102256_UpdateOrdersMigration")]
-    partial class UpdateOrdersMigration
+    [Migration("20220425194833_UpdateDatabaseMigration")]
+    partial class UpdateDatabaseMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -80,6 +80,9 @@ namespace NovaScotiaWoodworks.Migrations
 
                     b.Property<bool>("RememberMe")
                         .HasColumnType("bit");
+
+                    b.Property<string>("Salt")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Username");
 

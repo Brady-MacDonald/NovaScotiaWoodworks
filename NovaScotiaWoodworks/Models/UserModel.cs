@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
+
 namespace NovaScotiaWoodworks.Models
 {
     /// <summary>
@@ -14,6 +15,7 @@ namespace NovaScotiaWoodworks.Models
         [Required]
         
         public string Password { get; set; }
+        public string Salt { get;set; }
 
         [Display(Name = "Remember Me")]
         public bool RememberMe { get; set; }
