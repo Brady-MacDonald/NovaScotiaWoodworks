@@ -1,4 +1,5 @@
 using AspNetCoreHero.ToastNotification.Abstractions;
+using DataAccess.Data;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -18,12 +19,12 @@ namespace NovaScotiaWoodworks.Pages.Account
         [BindProperty]
         public UserModel CurrentUser { get; set; }
         private readonly IConfiguration _config;
-        private readonly ApplicationDbContext _db;
+        private readonly IUserData _data;
         private readonly INotyfService _notyf;
 
-        public LoginModel(ApplicationDbContext db, INotyfService notyf, IConfiguration config)
+        public LoginModel(INotyfService notyf, IConfiguration config, IUserData data)
         {
-            _db = db;
+            _data = data;
             _notyf = notyf;
             _config = config;
             CurrentUser = new UserModel();
@@ -39,7 +40,10 @@ namespace NovaScotiaWoodworks.Pages.Account
                 return Page();
             }
 
-            UserModel dbUser = _db.Users.Find(CurrentUser.Username);
+            DataAccess.Models.UserModel dbUser = new DataAccess.Models.UserModel();
+
+            //UserModel dbUser = _db.Users.Find(CurrentUser.Username);
+            dbUser = await _data.GetUser(CurrentUser.Username);
 
             if (dbUser == null)
             {
@@ -52,7 +56,7 @@ namespace NovaScotiaWoodworks.Pages.Account
             string hashedPassword = PasswordHash.GetStringSha256Hash(CurrentUser.Password, dbUser.Salt);
 
             //Verify the credentials
-            if (CurrentUser.Username == dbUser.Username && hashedPassword == dbUser.Password)
+            if (CurrentUser.Username == dbUser.UserName && hashedPassword == dbUser.Password)
             {
                 ClaimsPrincipal claimsPrincipal;
 

@@ -30,12 +30,12 @@
                 @foreach(var user in Model.UserList)
                 {
                     <tr>
-                        <td>@user.Username</td>
+                        <td>@user.UserName</td>
                         <td>@user.FirstName</td>
                         <td>@user.LastName</td>
                         <td>
                             <div class="w-75 btn-group" role="group">
-                                <form method="post" asp-page="/Admin/DeleteUser" asp-route-username="@user.Username">
+                                <form method="post" asp-page="/Admin/DeleteUser" asp-route-id="@user.Id">
                                     <button type="submit" class="btn btn-danger mx-2" >
                                         <i class="bi bi-trash3"></i> Delete
                                     </button>

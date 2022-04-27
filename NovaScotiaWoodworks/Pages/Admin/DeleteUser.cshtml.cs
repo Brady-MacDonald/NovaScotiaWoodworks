@@ -1,40 +1,37 @@
+using DataAccess.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using NovaScotiaWoodworks.Data;
 using NovaScotiaWoodworks.Models;
+using System;
+using System.Threading.Tasks;
 
 namespace NovaScotiaWoodworks.Pages.Admin
 {
     [Authorize(Policy = "AdminOnly")]
     public class DeleteUserModel : PageModel
     {
-        private readonly ApplicationDbContext _db;
+        private readonly IUserData _data;
 
-		public DeleteUserModel(ApplicationDbContext db)
+		public DeleteUserModel(IUserData data)
 		{
-            _db = db;
+            _data = data;
 		}
         public void OnGet()
         {
         }
 
-        public IActionResult OnPost(string username)
+        public async Task<IActionResult> OnPost(int id)
 		{
-            UserModel dbUser = _db.Users.Find(username);
-
-            if (dbUser == null)
-                //Unable to locate user account
-                return Redirect("Index");
-
             try
             {
-                _db.Users.Remove(dbUser);
-                _db.SaveChanges();
+                await _data.DeleteUser(id);
             }
-            catch
+            catch (Exception ex)
             {
-
+                //Add logging
+                return Redirect("/Index");
             }
 
             return Redirect("/Admin/ListUsers");

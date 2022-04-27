@@ -15,17 +15,13 @@ namespace NovaScotiaWoodworks.Pages.Account
     {
         [BindProperty]
         public UserModel CurrentUser { get; set; }
-        private readonly ApplicationDbContext _db;
         private readonly INotyfService _notyf;
         private readonly IUserData _data;
-        private readonly IDatabaseAccess _dbAccess;
         private readonly int _saltSize = 32;
-        public RegisterModel(ApplicationDbContext db, INotyfService notyf, IUserData data, IDatabaseAccess dbAccess)
+        public RegisterModel(INotyfService notyf, IUserData data)
         {
-            _db = db;
             _notyf = notyf;
             _data = data;
-            _dbAccess = dbAccess;
             CurrentUser = new UserModel();
         }
 
@@ -58,13 +54,11 @@ namespace NovaScotiaWoodworks.Pages.Account
 
             try
             {
-                _db.Users.Add(CurrentUser);
-                _db.SaveChanges();
                 await _data.InsertUser(user);
             }
             catch (Exception e)
             {
-                ModelState.AddModelError("RegisterError", "That username is already in use by another user!" + e.InnerException.Message);
+                ModelState.AddModelError("RegisterError", "Error: " + e.InnerException.Message);
                 return Page();
             }
             _notyf.Success("Account Created");

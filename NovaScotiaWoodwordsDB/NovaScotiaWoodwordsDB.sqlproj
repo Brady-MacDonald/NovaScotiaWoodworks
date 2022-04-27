@@ -65,6 +65,9 @@
     <Build Include="dbo\Tables\Users.sql" />
     <Build Include="dbo\StoredProcedures\spUsers_GetAll.sql" />
     <Build Include="dbo\StoredProcedures\spUsers_Insert.sql" />
+    <Build Include="dbo\StoredProcedures\spUsers_Delete.sql" />
+    <Build Include="dbo\StoredProcedures\spUsers_Update.sql" />
+    <Build Include="dbo\StoredProcedures\spUsers_Get.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment1.sql" />

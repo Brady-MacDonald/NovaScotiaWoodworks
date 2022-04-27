@@ -1,30 +1,31 @@
+using DataAccess.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using NovaScotiaWoodworks.Data;
 using NovaScotiaWoodworks.Models;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using UserModel = DataAccess.Models.UserModel;
 
 namespace NovaScotiaWoodworks.Pages.Admin
 {
     [Authorize(Policy = "AdminOnly")]
     public class ListUsersModel : PageModel
     {
-        private readonly ApplicationDbContext _db;
+        private readonly IUserData _data;
 
         [BindProperty]
         public IEnumerable<UserModel> UserList { get; set; }
 
-        public ListUsersModel(ApplicationDbContext db)
+        public ListUsersModel(IUserData data)
         {
-            _db = db;
+            _data = data;
             UserList = new List<UserModel>();
         }
-        public void OnGet()
+        public async Task OnGet()
         {
-            //Return the full set of contacts 
-            UserList = _db.Users;
-            System.Threading.Thread.Sleep(1000);
+            UserList = await _data.GetUsers();
         }
     }
 }

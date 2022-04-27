@@ -20,6 +20,14 @@ namespace DataAccess.Data
         public Task<IEnumerable<UserModel>> GetUsers() =>
             _db.LoadData<UserModel, dynamic>("dbo.spUsers_GetAll", new { });
 
+        public async Task<UserModel?> GetUser(string username)
+        {
+            var results = await _db.LoadData<UserModel, dynamic>(
+                "dbo.spUsers_Get", new { UserName = username });
+
+            return results.FirstOrDefault();
+        }
+
         public Task InsertUser(UserModel user) =>
             //Dont need to put the equals sign so it assums the name of the param will be same as property name(same capitilization)
             _db.SaveData("dbo.spUsers_Insert", new
@@ -31,5 +39,11 @@ namespace DataAccess.Data
                 user.Password,
                 user.Salt
             });
+
+        public Task UpdateUser(UserModel user) =>
+            _db.SaveData("dbo.spUsers_Update", user);
+
+        public Task DeleteUser(int id) =>
+            _db.SaveData("dbo.spUsers_Delete", new { Id = id });
     }
 }
