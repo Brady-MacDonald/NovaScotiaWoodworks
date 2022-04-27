@@ -1,0 +1,12 @@
+﻿CREATE PROCEDURE [dbo].[spUsers_Insert]
+	@FirstName nvarchar(50),
+	@LastName nvarchar(50),
+	@EmailAddress nvarchar(50),
+	@UserName nvarchar(50),
+	@Password nvarchar(50),
+	@Salt nvarchar(50)
+AS
+BEGIN
+	INSERT INTO dbo.Users (FirstName, LastName, EmailAddress, UserName, [Password], Salt)
+	VALUES (@FirstName, @LastName, @EmailAddress, @UserName, @Password, @Salt);
+END

@@ -108,3 +108,25 @@ body {
 #customOrder{
     height: max-content;
 }
+
+/* Fade Effect
+-------------------------------------------------- */
+.mainHeader {
+    /* name time loop? */
+    animation: fadeIn 2s forwards;
+}
+
+
+@keyframes fadeIn {
+    from {
+        /* starts as transparent and 2em above actual positioning */
+        opacity: 0;
+        transform: translateY(-2em);
+    }
+
+    to {
+        /* has regular opacity and default position as final setting */
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

@@ -1,5 +1,7 @@
 using AspNetCoreHero.ToastNotification;
 using AspNetCoreHero.ToastNotification.Extensions;
+using DataAccess.Data;
+using DataAccess.DbAccess;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -59,6 +61,10 @@ namespace NovaScotiaWoodworks
                 config.IsDismissable = true; 
                 config.Position = NotyfPosition.BottomRight; 
             });
+
+            //Adds in the DI
+            services.AddScoped<IDatabaseAccess, DatabaseAccess>();
+            services.AddScoped<IUserData, UserData>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
