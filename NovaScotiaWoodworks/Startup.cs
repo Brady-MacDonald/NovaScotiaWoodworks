@@ -49,11 +49,6 @@ namespace NovaScotiaWoodworks
                     policy => policy.RequireClaim("Admin", "true"));
             });
 
-            //Configure db with default connection string for local sql server
-            //services.AddDbContext<ApplicationDbContext>(options =>
-                //options.UseSqlServer(
-                    //Configuration.GetConnectionString("DefaultConnection")));
-
             services.AddNotyf(config => 
             { 
                 config.DurationInSeconds = 3; 
