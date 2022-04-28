@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Configuration;
 using NovaScotiaWoodworks.AccountManager;
-using NovaScotiaWoodworks.Data;
 using NovaScotiaWoodworks.Models;
 using System;
 using System.Collections.Generic;
@@ -41,8 +40,6 @@ namespace NovaScotiaWoodworks.Pages.Account
             }
 
             DataAccess.Models.UserModel dbUser = new DataAccess.Models.UserModel();
-
-            //UserModel dbUser = _db.Users.Find(CurrentUser.Username);
             dbUser = await _data.GetUser(CurrentUser.Username);
 
             if (dbUser == null)
@@ -60,18 +57,18 @@ namespace NovaScotiaWoodworks.Pages.Account
             {
                 ClaimsPrincipal claimsPrincipal;
 
+                //Check if to apply admin credentials
                 if (CurrentUser.Username == "admin")
-                {   //Apply admin credentials
                     claimsPrincipal = CreateClaims("true");
-                }
-                else { claimsPrincipal = CreateClaims("false"); }
+                else 
+                    claimsPrincipal = CreateClaims("false");
 
                 var authProperties = new AuthenticationProperties
                 {
                     //Configures if user should stay signed in on browser close
                     IsPersistent = CurrentUser.RememberMe
                 };
-                //Uses the IAuthenticationService interface and allow asp.net to implement interface through DI
+                //Uses the IAuthenticationService interface
                 await HttpContext.SignInAsync(_config["Cookie"], claimsPrincipal, authProperties);
                 _notyf.Success("Signed In");
                 return Redirect("/Index");

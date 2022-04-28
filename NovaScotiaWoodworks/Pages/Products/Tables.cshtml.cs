@@ -1,7 +1,7 @@
 using AspNetCoreHero.ToastNotification.Abstractions;
+using DataAccess.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using NovaScotiaWoodworks.Data;
 using NovaScotiaWoodworks.Models;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,29 +11,29 @@ namespace NovaScotiaWoodworks.Pages.Products
     public class TablesModel : PageModel
     {
         [BindProperty]
-        public OrderModel Order { get; set; }
+        public DataAccess.Models.OrderModel Order { get; set; }
         public bool DisableSquare { get; set; }
         public bool DisableCoffee { get; set; }
-        private readonly ApplicationDbContext _db;
+        private readonly IUserData _data;
         private readonly INotyfService _notyf;
 
-        public TablesModel(ApplicationDbContext db, INotyfService notyf)
+        public TablesModel(IUserData data, INotyfService notyf)
         {
-            _db = db;
+            _data = data;
             _notyf = notyf;
-            Order = new OrderModel();
+            Order = new DataAccess.Models.OrderModel();
         }
 
-        public void OnGet()
+        public async Task OnGet()
         {
-            OrderModel orderCoffeeTable = _db.Orders.FirstOrDefault(x => x.Product == "Coffee Table");
+            DataAccess.Models.OrderModel orderCoffeeTable = await _data.GetOrderByProduct("Coffee Table");
             if (orderCoffeeTable != null)
             {
                 ModelState.AddModelError("CoffeeTablePurchased", " (SOLD)");
                 DisableCoffee = true;
             }
 
-            OrderModel orderSquareTable = _db.Orders.FirstOrDefault(x => x.Product == "Square Table");
+            DataAccess.Models.OrderModel orderSquareTable = await _data.GetOrderByProduct("Square Table");
             if (orderSquareTable != null)
             {
                 ModelState.AddModelError("SquareTablePurchased", " (SOLD)");
@@ -41,7 +41,7 @@ namespace NovaScotiaWoodworks.Pages.Products
             }
         }
 
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPost()
         {
             if(!User.Identity.IsAuthenticated)
             {
@@ -50,15 +50,14 @@ namespace NovaScotiaWoodworks.Pages.Products
             }
 
             //Add the username to the order
-            Order.Username = User.Identity.Name;
+            Order.UserName = User.Identity.Name;
             Order.Product = "Custome Table";
             Order.OrderTime = System.DateTime.Now;
             Order.Status = "Order Placed";
 
             try
             {
-                _db.Orders.Add(Order);
-                _db.SaveChanges();
+                await _data.InsertOrder(Order);
             }
             catch
             {

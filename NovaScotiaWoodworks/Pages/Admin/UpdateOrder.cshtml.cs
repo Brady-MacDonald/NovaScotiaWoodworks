@@ -1,8 +1,10 @@
+using DataAccess.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using NovaScotiaWoodworks.Data;
 using NovaScotiaWoodworks.Models;
+using System.Threading.Tasks;
+using OrderModel = DataAccess.Models.OrderModel;
 
 namespace NovaScotiaWoodworks.Pages.Admin
 {
@@ -11,19 +13,18 @@ namespace NovaScotiaWoodworks.Pages.Admin
     { 
         [BindProperty]
         public OrderModel CurrentOrder { get; set; }
-        private readonly ApplicationDbContext _db;
+        private readonly IUserData _data;
 
-        public UpdateOrderModel(ApplicationDbContext db)
+        public UpdateOrderModel(IUserData data)
         {
-            _db = db;
-            //CurrentOrder = new OrderModel();
+            _data = data;
+            CurrentOrder = new OrderModel();
         }
 
-        public IActionResult OnGet(int id)
+        public async Task<IActionResult> OnGet(int id)
         {
-            CurrentOrder = _db.Orders.Find(id);
+            //CurrentOrder = await _data.GetOrders();
 
-            System.Threading.Thread.Sleep(1000);
 
             if (CurrentOrder == null)
             {
@@ -31,7 +32,7 @@ namespace NovaScotiaWoodworks.Pages.Admin
             }
             return Page();
         }
-        public IActionResult OnPost(OrderModel currentOrder)
+        public async Task<IActionResult> OnPost(OrderModel currentOrder)
         {
             //Unable to locate order
             if (CurrentOrder == null)
@@ -39,8 +40,7 @@ namespace NovaScotiaWoodworks.Pages.Admin
 
             try
             {
-                _db.Orders.Update(CurrentOrder);
-                _db.SaveChanges();
+                //await _data.UpdateOrder(CurrentOrder);
             }
             catch
             {

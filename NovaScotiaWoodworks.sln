@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NovaScotiaWoodworks", "Nova
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "NovaScotiaWoodwordsDB", "NovaScotiaWoodwordsDB\NovaScotiaWoodwordsDB.sqlproj", "{895B7F7A-DC50-4141-8C1D-FF05C2837C12}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{A9D3F713-6B08-4B16-96B3-5A450D3C29B8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess", "DataAccess\DataAccess.csproj", "{A9D3F713-6B08-4B16-96B3-5A450D3C29B8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

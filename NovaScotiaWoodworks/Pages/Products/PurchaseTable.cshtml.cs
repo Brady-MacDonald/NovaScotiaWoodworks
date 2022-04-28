@@ -1,9 +1,10 @@
 using AspNetCoreHero.ToastNotification.Abstractions;
+using DataAccess.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using NovaScotiaWoodworks.Data;
-using NovaScotiaWoodworks.Models;
+using System;
+using System.Threading.Tasks;
 
 namespace NovaScotiaWoodworks.Pages.Products
 {
@@ -11,26 +12,26 @@ namespace NovaScotiaWoodworks.Pages.Products
     public class PurchaseTableModel : PageModel
     {
         [BindProperty]
-        public OrderModel Order { get; set; }
-        private readonly ApplicationDbContext _db;
+        public DataAccess.Models.OrderModel Order { get; set; }
+        private readonly IUserData _data;
         private readonly INotyfService _notyf;
 
-        public PurchaseTableModel(ApplicationDbContext db, INotyfService notyf)
+        public PurchaseTableModel(IUserData data, INotyfService notyf)
         {
-            _db = db;
+            _data = data;
             _notyf = notyf;
-            Order = new OrderModel();
+            Order = new DataAccess.Models.OrderModel();
         }
 
-        public IActionResult OnPost(string purchase)
+        public async Task<IActionResult> OnPost(string purchase)
         {
             //Add the username to the order
-            Order.Username = User.Identity.Name;
+            Order.UserName = User.Identity.Name;
             Order.Product = purchase;
-            Order.OrderTime = System.DateTime.Now;
+            Order.OrderTime = DateTime.Now;
             Order.Status = "Order Placed";
 
-            if (Order.Email == null)
+            if (Order.EmailAddress == null)
             {
                 _notyf.Error("Enter email address");
                 return Redirect("/Products/Tables");
@@ -44,14 +45,14 @@ namespace NovaScotiaWoodworks.Pages.Products
 
             try
             {
-                _db.Orders.Add(Order);
-                _db.SaveChanges();
+                await _data.InsertOrder(Order);
             }
-            catch
+            catch (Exception ex)
             {
                 _notyf.Error("Unable to place order");
                 return Redirect("/Products/Tables");
             }
+
             _notyf.Success("Order Placed");
             return Redirect("/Products/Tables");
         }

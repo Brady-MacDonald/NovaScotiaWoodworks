@@ -38,9 +38,9 @@
 						<div class="text-danger" asp-validation-summary="ModelOnly"></div>
 
 						<div class="col-6 mb-3">
-							<label asp-for="Order.Email"></label>
-							<input asp-for="Order.Email" class="form-control"/>
-							<span asp-validation-for="Order.Email" class="text-danger"></span>
+							<label asp-for="Order.EmailAddress"></label>
+							<input asp-for="Order.EmailAddress" class="form-control"/>
+							<span asp-validation-for="Order.EmailAddress" class="text-danger"></span>
 
 							<button type="submit" class="btn btn-primary mt-2" disabled="@(Model.DisableCoffee ? "disabled" : null)">
 								<i class="bi bi-wallet-fill"></i> Purchase
@@ -71,9 +71,9 @@
 						<div class="text-danger" asp-validation-summary="ModelOnly"></div>
 
 						<div class="col-6 mb-3">
-							<label asp-for="Order.Email"></label>
-							<input asp-for="Order.Email" class="form-control"/>
-							<span asp-validation-for="Order.Email" class="text-danger"></span>
+							<label asp-for="Order.EmailAddress"></label>
+							<input asp-for="Order.EmailAddress" class="form-control"/>
+							<span asp-validation-for="Order.EmailAddress" class="text-danger"></span>
 						</div>
 						<button type="submit" class="btn btn-primary" disabled="@(Model.DisableSquare ? "disabled" : null)">
 							<i class="bi bi-wallet-fill"></i> Purchase
@@ -100,14 +100,14 @@
 						<!-- Email input -->
 						<div class="form-outline mb-4 row">
 							<div class="col-4 text-end">
-								<label asp-for="Order.Email"></label>
+								<label asp-for="Order.EmailAddress"></label>
 							</div>
 							<div class="col-5">
-								<input class="form-control" type="text" asp-for="Order.Email" autofocus/>
-								<span class="text-danger" asp-validation-for="Order.Email"></span>
+								<input class="form-control" type="text" asp-for="Order.EmailAddress" autofocus/>
+								<span class="text-danger" asp-validation-for="Order.EmailAddress"></span>
 							</div>
 						</div>
-						<!-- Color input -->
+						<!-- 
 						<div class="form-outline mb-4 row">
 							<div class="col-4 text-end">
 								<label asp-for="Order.Finish"></label>
@@ -117,7 +117,6 @@
 								<span class="text-danger" asp-validation-for="Order.Finish"></span>
 							</div>
 						</div>
-						<!-- Dimensions input -->
 						<div class="form-outline mb-4 row">
 							<div class="col-4 text-end">
 								<label asp-for="Order.Length"></label>
@@ -145,6 +144,7 @@
 								<span class="text-danger" asp-validation-for="Order.Height"></span>
 							</div>
 						</div>
+						Color input -->
 						<label class="text-danger mb-1">
 							@Html.ValidationMessage("OrderError")
 						</label>

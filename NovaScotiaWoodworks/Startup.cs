@@ -9,7 +9,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using NovaScotiaWoodworks.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -51,9 +50,9 @@ namespace NovaScotiaWoodworks
             });
 
             //Configure db with default connection string for local sql server
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+            //services.AddDbContext<ApplicationDbContext>(options =>
+                //options.UseSqlServer(
+                    //Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddNotyf(config => 
             { 

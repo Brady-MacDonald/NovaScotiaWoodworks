@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using NovaScotiaWoodworks.Data;
 using NovaScotiaWoodworks.Models;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -16,26 +16,24 @@ namespace NovaScotiaWoodworks.Pages.Account
     {
         [BindProperty]
         public DataAccess.Models.UserModel CurrentUser { get; set; }
-        //private readonly ApplicationDbContext _db;
         private readonly IUserData _data;
         private readonly INotyfService _notyf;
 
         public EditProfileModel(INotyfService notyf, IUserData data)
         {
-            //_db = db;
             _data = data;
             _notyf = notyf;
             CurrentUser = new DataAccess.Models.UserModel();
         }
         public async Task<IActionResult> OnGet()
         {
-            //CurrentUser = _db.Users.Find(User.Identity.Name);
-
-            CurrentUser = await _data.GetUser(User.Identity.Name);
-
-            if (CurrentUser == null)
+            try
             {
-                ModelState.AddModelError("EditError", "Unable to load account information");
+                CurrentUser = await _data.GetUser(User.Identity.Name);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("EditError", "Error: " + ex.Message);
             }
             return Page();
         }
@@ -54,13 +52,14 @@ namespace NovaScotiaWoodworks.Pages.Account
             {
                 //CurrentUser.Password = dbUser.Password;
                 //CurrentUser.Username = dbUser.Username;
-                
+                CurrentUser.Id = dbUser.Id;
                 //Unable to make changes to database due to db context being shared by multiple requests
                 await _data.UpdateUser(CurrentUser);
             }
-            catch
+            catch (Exception ex)
             {
                 ModelState.AddModelError("EditError", "Unable to update account");
+                _notyf.Error("Unable to update account");
                 return Page();
             }
 

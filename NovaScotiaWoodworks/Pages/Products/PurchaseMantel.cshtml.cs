@@ -3,7 +3,6 @@ using DataAccess.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using NovaScotiaWoodworks.Data;
 using NovaScotiaWoodworks.Models;
 
 namespace NovaScotiaWoodworks.Pages.Products

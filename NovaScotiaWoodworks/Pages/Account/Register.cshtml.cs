@@ -4,7 +4,6 @@ using DataAccess.DbAccess;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using NovaScotiaWoodworks.AccountManager;
-using NovaScotiaWoodworks.Data;
 using NovaScotiaWoodworks.Models;
 using System;
 using System.Threading.Tasks;

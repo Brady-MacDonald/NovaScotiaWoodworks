@@ -1,10 +1,12 @@
 using AspNetCoreHero.ToastNotification.Abstractions;
+using DataAccess.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using NovaScotiaWoodworks.AccountManager;
-using NovaScotiaWoodworks.Data;
 using NovaScotiaWoodworks.Models;
+using UserModel = DataAccess.Models.UserModel;
+using System.Threading.Tasks;
 
 namespace NovaScotiaWoodworks.Pages.Account
 {
@@ -14,12 +16,13 @@ namespace NovaScotiaWoodworks.Pages.Account
         [BindProperty]
         public PasswordChangeModel ChangePassword { get; set; }
         public UserModel CurrentUser { get; set; }
-        private readonly ApplicationDbContext _db;
+        private readonly IUserData _data;
         private readonly INotyfService _notyf;
         private readonly int _saltSize = 32;
-        public ChangePasswordModel(ApplicationDbContext db, INotyfService notyf)
+        
+        public ChangePasswordModel(IUserData data, INotyfService notyf)
         {
-            _db = db;
+            _data= data;
             _notyf = notyf;
             CurrentUser = new UserModel();
             ChangePassword = new PasswordChangeModel();
@@ -29,7 +32,7 @@ namespace NovaScotiaWoodworks.Pages.Account
         {
         }
 
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPost()
         {
             if (!ModelState.IsValid)
             {
@@ -37,7 +40,7 @@ namespace NovaScotiaWoodworks.Pages.Account
             }
 
             //Get the users currently stored password hash
-            CurrentUser = _db.Users.Find(User.Identity.Name);
+            CurrentUser = await _data.GetUser(User.Identity.Name);
 
             //Convert the user entered password into its hash
             string currentPasswordHash = PasswordHash.GetStringSha256Hash(ChangePassword.CurrentPassword, CurrentUser.Salt);
@@ -62,8 +65,7 @@ namespace NovaScotiaWoodworks.Pages.Account
             CurrentUser.Salt = newSalt;
             try
             {
-                _db.Users.Update(CurrentUser);
-                _db.SaveChanges();
+                await _data.UpdateUser(CurrentUser);
             }
             catch
             {

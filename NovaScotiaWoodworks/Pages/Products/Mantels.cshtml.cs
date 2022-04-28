@@ -2,7 +2,6 @@ using AspNetCoreHero.ToastNotification.Abstractions;
 using DataAccess.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using NovaScotiaWoodworks.Data;
 using NovaScotiaWoodworks.Models;
 using System.Collections.Generic;
 using System.Linq;
