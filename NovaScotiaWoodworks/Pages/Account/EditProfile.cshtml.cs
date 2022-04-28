@@ -1,10 +1,10 @@
 using AspNetCoreHero.ToastNotification.Abstractions;
 using DataAccess.Data;
+using DataAccess.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using NovaScotiaWoodworks.Models;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,7 +15,7 @@ namespace NovaScotiaWoodworks.Pages.Account
     public class EditProfileModel : PageModel
     {
         [BindProperty]
-        public DataAccess.Models.UserModel CurrentUser { get; set; }
+        public UserModel CurrentUser { get; set; }
         private readonly IUserData _data;
         private readonly INotyfService _notyf;
 
@@ -23,7 +23,7 @@ namespace NovaScotiaWoodworks.Pages.Account
         {
             _data = data;
             _notyf = notyf;
-            CurrentUser = new DataAccess.Models.UserModel();
+            CurrentUser = new UserModel();
         }
         public async Task<IActionResult> OnGet()
         {
@@ -40,7 +40,7 @@ namespace NovaScotiaWoodworks.Pages.Account
 
         public async Task<IActionResult> OnPostAsync()
         {
-            DataAccess.Models.UserModel dbUser = await _data.GetUser(User.Identity.Name);
+            UserModel dbUser = await _data.GetUser(User.Identity.Name);
 
             if(dbUser == null)
             {
@@ -58,7 +58,7 @@ namespace NovaScotiaWoodworks.Pages.Account
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError("EditError", "Unable to update account");
+                ModelState.AddModelError("EditError", "Unable to update account" + ex.Message);
                 _notyf.Error("Unable to update account");
                 return Page();
             }

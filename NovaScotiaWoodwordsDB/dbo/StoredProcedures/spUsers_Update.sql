@@ -2,6 +2,7 @@
 	@Id int,
 	@FirstName nvarchar(50),
 	@LastName nvarchar(50),
+	@RememberMe bit,
 	@EmailAddress nvarchar(50),
 	@UserName nvarchar(50),
 	@Password nvarchar(100),

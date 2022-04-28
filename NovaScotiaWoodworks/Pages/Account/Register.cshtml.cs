@@ -13,7 +13,7 @@ namespace NovaScotiaWoodworks.Pages.Account
     public class RegisterModel : PageModel
     {
         [BindProperty]
-        public UserModel CurrentUser { get; set; }
+        public CreateUserModel CurrentUser { get; set; }
         private readonly INotyfService _notyf;
         private readonly IUserData _data;
         private readonly int _saltSize = 32;
@@ -21,7 +21,7 @@ namespace NovaScotiaWoodworks.Pages.Account
         {
             _notyf = notyf;
             _data = data;
-            CurrentUser = new UserModel();
+            CurrentUser = new CreateUserModel();
         }
 
         public void OnGet()
@@ -31,9 +31,7 @@ namespace NovaScotiaWoodworks.Pages.Account
         public async Task<IActionResult> OnPost()
         {
             if (!ModelState.IsValid)
-            {
                 return Page();
-            }
 
             string salt = PasswordHash.CreateSalt(_saltSize);
             string hashedPassword = PasswordHash.GetStringSha256Hash(CurrentUser.Password, salt);
@@ -46,7 +44,7 @@ namespace NovaScotiaWoodworks.Pages.Account
                 FirstName = CurrentUser.FirstName,
                 LastName = CurrentUser.LastName,
                 UserName = CurrentUser.Username,
-                EmailAddress = "test@testing.com",
+                EmailAddress = CurrentUser.EmailAddress,
                 Password = CurrentUser.Password,
                 Salt = salt,
             };
@@ -55,9 +53,9 @@ namespace NovaScotiaWoodworks.Pages.Account
             {
                 await _data.InsertUser(user);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                ModelState.AddModelError("RegisterError", "Error: " + e.InnerException.Message);
+                ModelState.AddModelError("RegisterError", "Error: " + ex.InnerException.Message);
                 return Page();
             }
             _notyf.Success("Account Created");

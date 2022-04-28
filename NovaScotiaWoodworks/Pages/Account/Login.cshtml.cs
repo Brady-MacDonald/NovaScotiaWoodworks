@@ -1,5 +1,6 @@
 using AspNetCoreHero.ToastNotification.Abstractions;
 using DataAccess.Data;
+using DataAccess.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -36,15 +37,13 @@ namespace NovaScotiaWoodworks.Pages.Account
         {
             if (!ModelState.IsValid) 
             {
+                _notyf.Error("Unable to sign in");
                 return Page();
             }
 
-            DataAccess.Models.UserModel dbUser = new DataAccess.Models.UserModel();
-            dbUser = await _data.GetUser(CurrentUser.Username);
-
+            UserModel dbUser = await _data.GetUser(CurrentUser.UserName);
             if (dbUser == null)
             {
-                //Unable to locate user account
                 ModelState.AddModelError("AccountError", "Unable to locate account");
                 return Page();
             }
@@ -53,12 +52,12 @@ namespace NovaScotiaWoodworks.Pages.Account
             string hashedPassword = PasswordHash.GetStringSha256Hash(CurrentUser.Password, dbUser.Salt);
 
             //Verify the credentials
-            if (CurrentUser.Username == dbUser.UserName && hashedPassword == dbUser.Password)
+            if (CurrentUser.UserName == dbUser.UserName && hashedPassword == dbUser.Password)
             {
                 ClaimsPrincipal claimsPrincipal;
 
                 //Check if to apply admin credentials
-                if (CurrentUser.Username == "admin")
+                if (CurrentUser.UserName == "admin")
                     claimsPrincipal = CreateClaims("true");
                 else 
                     claimsPrincipal = CreateClaims("false");
@@ -68,6 +67,7 @@ namespace NovaScotiaWoodworks.Pages.Account
                     //Configures if user should stay signed in on browser close
                     IsPersistent = CurrentUser.RememberMe
                 };
+
                 //Uses the IAuthenticationService interface
                 await HttpContext.SignInAsync(_config["Cookie"], claimsPrincipal, authProperties);
                 _notyf.Success("Signed In");
@@ -86,7 +86,7 @@ namespace NovaScotiaWoodworks.Pages.Account
         {
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, CurrentUser.Username),
+                new Claim(ClaimTypes.Name, CurrentUser.UserName),
                 new Claim("Admin", admin),
             };
             
