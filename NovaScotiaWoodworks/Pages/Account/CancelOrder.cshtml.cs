@@ -1,48 +1,43 @@
 using AspNetCoreHero.ToastNotification.Abstractions;
+using DataAccess.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using NovaScotiaWoodworks.Data;
 using NovaScotiaWoodworks.Models;
+using System;
+using System.Threading.Tasks;
 
 namespace NovaScotiaWoodworks.Pages.Account
 {
     [Authorize]
     public class CancelOrderModel : PageModel
     {
-        private readonly ApplicationDbContext _db;
+        private readonly IUserData _data;
         private readonly INotyfService _notyf;
 
-        public CancelOrderModel(ApplicationDbContext db, INotyfService notyf)
+        public CancelOrderModel(IUserData data, INotyfService notyf)
         {
-            _db = db;
+            _data = data;
             _notyf = notyf;
         }
         public void OnGet()
         {
         }
 
-        public IActionResult OnPost(int id)
+        public async Task<IActionResult> OnPost(int id)
         {
-            OrderModel dbOrder = _db.Orders.Find(id);
-
-            if (dbOrder == null)
-            {
-                _notyf.Error("Unable to locate order");
-                return Redirect("/Account/Orders");
-            }
-
             try
             {
-                _db.Orders.Remove(dbOrder);
-                _db.SaveChanges();
+                await _data.DeleteOrder(id);
             }
-            catch
+            catch (Exception ex)
             {
                 _notyf.Error("Error cancelling order");
+                return Redirect("Orders");
             }
             _notyf.Success("Order Cancelled");
-            return Redirect("/Account/Orders");
+            return Page();
         }
     }
 }

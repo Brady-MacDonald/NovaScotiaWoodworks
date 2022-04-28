@@ -12,5 +12,12 @@ namespace DataAccess.Data
         Task UpdateUser(UserModel user);
         Task DeleteUser(int id);
 
+        Task<IEnumerable<OrderModel>> GetOrders();
+        Task<OrderModel?> GetOrderByProduct(string product);
+        Task<IEnumerable<OrderModel>> GetOrderByUserName(string username);
+        Task InsertOrder(OrderModel order);
+        Task DeleteOrder(int id);
+
+
     }
 }

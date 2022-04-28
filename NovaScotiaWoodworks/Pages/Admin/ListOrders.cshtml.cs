@@ -1,10 +1,12 @@
 using AspNetCoreHero.ToastNotification.Abstractions;
+using DataAccess.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using NovaScotiaWoodworks.Data;
 using NovaScotiaWoodworks.Models;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace NovaScotiaWoodworks.Pages.Admin
 {
@@ -12,19 +14,18 @@ namespace NovaScotiaWoodworks.Pages.Admin
     public class ListOrdersModel : PageModel
     {
         [BindProperty]
-        public IEnumerable<OrderModel> OrderList { get; set; }
-        private readonly ApplicationDbContext _db;
+        public IEnumerable<DataAccess.Models.OrderModel> OrderList { get; set; }
+        private readonly IUserData _data;
 
-        public ListOrdersModel(ApplicationDbContext db)
+        public ListOrdersModel(IUserData data)
         {
-            _db = db;
+            _data = data;
+            OrderList = new List<DataAccess.Models.OrderModel>();
         }
 
-        public void OnGet()
+        public async Task OnGet()
         {
-            //Return the full set of orders 
-            OrderList = _db.Orders;
-            System.Threading.Thread.Sleep(1000);
+            OrderList = await _data.GetOrders();
         }
     }
 }

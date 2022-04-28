@@ -1,3 +1,4 @@
+using DataAccess.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -5,6 +6,7 @@ using NovaScotiaWoodworks.Data;
 using NovaScotiaWoodworks.Models;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace NovaScotiaWoodworks.Pages.Account
 {
@@ -12,19 +14,16 @@ namespace NovaScotiaWoodworks.Pages.Account
     public class OrdersModel : PageModel
     {
         [BindProperty]
-        public IEnumerable<OrderModel> OrderList { get; set; }
-        private readonly ApplicationDbContext _db;
+        public IEnumerable<DataAccess.Models.OrderModel> OrderList { get; set; }
+        private readonly IUserData _data;
 
-        public OrdersModel(ApplicationDbContext db)
+        public OrdersModel(IUserData data)
         {
-            _db = db;
+            _data = data;
         }
-        public void OnGet()
+        public async Task OnGet()
         {
-            //Return the full set of orders 
-            OrderList = _db.Orders.Where(x => x.Username == User.Identity.Name);
-
-            System.Threading.Thread.Sleep(1000);
+            OrderList = await _data.GetOrderByUserName(User.Identity.Name);
         }
     }
 }

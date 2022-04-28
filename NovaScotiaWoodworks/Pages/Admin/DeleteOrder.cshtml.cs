@@ -1,4 +1,5 @@
 using AspNetCoreHero.ToastNotification.Abstractions;
+using DataAccess.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -10,12 +11,12 @@ namespace NovaScotiaWoodworks.Pages.Admin
     [Authorize(Policy = "AdminOnly")]
     public class DeleteOrderModel : PageModel
     {
-        private readonly ApplicationDbContext _db;
+        private readonly IUserData _data;
         private readonly INotyfService _notyf;
 
-        public DeleteOrderModel(ApplicationDbContext db, INotyfService notyf)
+        public DeleteOrderModel(IUserData data, INotyfService notyf)
         {
-            _db = db;
+            _data = data;
             _notyf = notyf;
         }
         public void OnGet()
@@ -24,18 +25,9 @@ namespace NovaScotiaWoodworks.Pages.Admin
 
         public IActionResult OnPost(int id)
         {
-            OrderModel dbOrder = _db.Orders.Find(id);
-
-            if (dbOrder == null)
-            {
-                _notyf.Error("Unable to locate order");
-                return Redirect("/Admin/ListOrders");
-            }
-
             try
             {
-                _db.Orders.Remove(dbOrder);
-                _db.SaveChanges();
+                _data.DeleteOrder(id);
             }
             catch
             {

@@ -13,10 +13,9 @@ namespace NovaScotiaWoodworks.Pages.Admin
     [Authorize(Policy = "AdminOnly")]
     public class ListUsersModel : PageModel
     {
-        private readonly IUserData _data;
-
         [BindProperty]
         public IEnumerable<UserModel> UserList { get; set; }
+        private readonly IUserData _data;
 
         public ListUsersModel(IUserData data)
         {

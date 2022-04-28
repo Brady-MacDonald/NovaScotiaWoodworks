@@ -1,4 +1,5 @@
 using AspNetCoreHero.ToastNotification.Abstractions;
+using DataAccess.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -11,26 +12,26 @@ namespace NovaScotiaWoodworks.Pages.Products
     public class PurchaseMantelModel : PageModel
     {
         [BindProperty]
-        public OrderModel Order { get; set; }
-        private readonly ApplicationDbContext _db;
+        public DataAccess.Models.OrderModel Order { get; set; }
+        private readonly IUserData _data;
         private readonly INotyfService _notyf;
 
-        public PurchaseMantelModel(ApplicationDbContext db, INotyfService notyf)
+        public PurchaseMantelModel(IUserData data, INotyfService notyf)
         {
-            _db = db;
+            _data = data;
             _notyf = notyf;
-            Order = new OrderModel();
+            Order = new DataAccess.Models.OrderModel();
         }
 
         public IActionResult OnPost(string purchase)
         {
             //Add the username to the order
-            Order.Username = User.Identity.Name;
+            Order.UserName = User.Identity.Name;
             Order.Product = purchase;
             Order.OrderTime = System.DateTime.Now;
             Order.Status = "Order Placed";
 
-            if (Order.Email == null)
+            if (Order.EmailAddress == null)
             {
                 _notyf.Error("Enter email address");
                 return Redirect("/Products/Mantels");
@@ -44,8 +45,7 @@ namespace NovaScotiaWoodworks.Pages.Products
 
             try
             {
-                _db.Orders.Add(Order);
-                _db.SaveChanges();
+                _data.InsertOrder(Order);
             }
             catch
             {

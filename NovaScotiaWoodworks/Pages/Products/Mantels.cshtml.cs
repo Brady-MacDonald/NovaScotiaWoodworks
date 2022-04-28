@@ -1,38 +1,40 @@
 using AspNetCoreHero.ToastNotification.Abstractions;
+using DataAccess.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using NovaScotiaWoodworks.Data;
 using NovaScotiaWoodworks.Models;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace NovaScotiaWoodworks.Pages.Products
 {
     public class MantelsModel : PageModel
     {
         [BindProperty]
-        public OrderModel Order { get; set; }
+        public DataAccess.Models.OrderModel Order { get; set; }
         public bool DisbaleClassic { get; set; }
         public bool DisbaleModern { get; set; }
-        private readonly ApplicationDbContext _db;
+        private readonly IUserData _data;
         private readonly INotyfService _notyf;
 
-        public MantelsModel(ApplicationDbContext db, INotyfService notyf)
+        public MantelsModel(IUserData data, INotyfService notyf)
         {
-            _db = db;
+            _data = data;
             _notyf = notyf;
-            Order = new OrderModel();
+            Order = new DataAccess.Models.OrderModel();
         }
 
-        public void OnGet()
+        public async Task OnGet()
         {
-            OrderModel orderClassicMantel = _db.Orders.FirstOrDefault(x => x.Product == "Classic Mantel");
+            DataAccess.Models.OrderModel orderClassicMantel = await _data.GetOrderByProduct("Classic Mantel");
             if (orderClassicMantel != null)
             {
                 ModelState.AddModelError("ClassicMantelPurchased", " (SOLD)");
                 DisbaleClassic = true;
             }
-            OrderModel orderModernMantel = _db.Orders.FirstOrDefault(x => x.Product == "Modern Mantel");
+            DataAccess.Models.OrderModel orderModernMantel = await _data.GetOrderByProduct("Modern Mantel");
             if (orderModernMantel != null)
             {
                 ModelState.AddModelError("ModernMantelPurchased", " (SOLD)");
@@ -49,15 +51,14 @@ namespace NovaScotiaWoodworks.Pages.Products
             }
 
             //Add the username to the order
-            Order.Username = User.Identity.Name;
+            Order.UserName = User.Identity.Name;
             Order.Product = "Custom Mantel";
             Order.OrderTime = System.DateTime.Now;
             Order.Status = "Order Placed";
 
             try
             {
-                _db.Orders.Add(Order);
-                _db.SaveChanges();
+                _data.InsertOrder(Order);
             }
             catch
             {

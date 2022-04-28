@@ -45,5 +45,40 @@ namespace DataAccess.Data
 
         public Task DeleteUser(int id) =>
             _db.SaveData("dbo.spUsers_Delete", new { Id = id });
+
+
+        public Task<IEnumerable<OrderModel>> GetOrders() =>
+            _db.LoadData<OrderModel, dynamic>("dbo.spOrders_GetAll", new { });
+
+        public async Task<OrderModel?> GetOrderByProduct(string product)
+        {
+            var results = await _db.LoadData<OrderModel, dynamic>(
+                "dbo.spOrders_GetByProduct", new { Product = product });
+
+            return results.FirstOrDefault();
+        }
+
+        public async Task<IEnumerable<OrderModel>?> GetOrderByUserName(string username)
+        {
+            var results = await _db.LoadData<OrderModel, dynamic>(
+                "dbo.spOrders_GetByUserName", new { UserName = username });
+
+            return results;
+        }
+
+        public Task InsertOrder(OrderModel order) =>
+            //Dont need to put the equals sign so it assums the name of the param will be same as property name(same capitilization)
+            _db.SaveData("dbo.spOrders_Insert", new
+            {
+                order.UserName,
+                order.EmailAddress,
+                order.Product,
+                order.OrderTime,
+                order.Status
+            });
+
+
+        public Task DeleteOrder(int id) =>
+            _db.SaveData("dbo.spOrders_Delete", new { Id = id });
     }
 }
