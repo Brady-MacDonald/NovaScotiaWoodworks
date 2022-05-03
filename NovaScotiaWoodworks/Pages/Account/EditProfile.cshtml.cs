@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,11 +19,13 @@ namespace NovaScotiaWoodworks.Pages.Account
         public UserModel CurrentUser { get; set; }
         private readonly IUserData _data;
         private readonly INotyfService _notyf;
+        private readonly ILogger<EditProfileModel> _logger;
 
-        public EditProfileModel(INotyfService notyf, IUserData data)
+        public EditProfileModel(INotyfService notyf, IUserData data, ILogger<EditProfileModel> logger)
         {
             _data = data;
             _notyf = notyf;
+            _logger = logger;
             CurrentUser = new UserModel();
         }
         public async Task<IActionResult> OnGet()
@@ -34,6 +37,7 @@ namespace NovaScotiaWoodworks.Pages.Account
             catch (Exception ex)
             {
                 ModelState.AddModelError("EditError", "Error: " + ex.Message);
+                _logger.LogError("Unable to locate user to edit", ex);
             }
             return Page();
         }
@@ -50,16 +54,15 @@ namespace NovaScotiaWoodworks.Pages.Account
 
             try
             {
-                //CurrentUser.Password = dbUser.Password;
-                //CurrentUser.Username = dbUser.Username;
                 CurrentUser.Id = dbUser.Id;
-                //Unable to make changes to database due to db context being shared by multiple requests
                 await _data.UpdateUser(CurrentUser);
             }
             catch (Exception ex)
             {
                 ModelState.AddModelError("EditError", "Unable to update account" + ex.Message);
                 _notyf.Error("Unable to update account");
+                _logger.LogError("Unable to update account", ex);
+                _logger.LogError("Unable to update, Message: ", ex.Message);
                 return Page();
             }
 

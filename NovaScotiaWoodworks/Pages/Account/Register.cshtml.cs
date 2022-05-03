@@ -3,6 +3,7 @@ using DataAccess.Data;
 using DataAccess.DbAccess;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Logging;
 using NovaScotiaWoodworks.AccountManager;
 using NovaScotiaWoodworks.Models;
 using System;
@@ -16,11 +17,13 @@ namespace NovaScotiaWoodworks.Pages.Account
         public CreateUserModel CurrentUser { get; set; }
         private readonly INotyfService _notyf;
         private readonly IUserData _data;
+        private readonly ILogger<RegisterModel> _logger;
         private readonly int _saltSize = 32;
-        public RegisterModel(INotyfService notyf, IUserData data)
+        public RegisterModel(INotyfService notyf, IUserData data, ILogger<RegisterModel> logger)
         {
             _notyf = notyf;
             _data = data;
+            _logger = logger;
             CurrentUser = new CreateUserModel();
         }
 
@@ -55,7 +58,8 @@ namespace NovaScotiaWoodworks.Pages.Account
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError("RegisterError", "Error: " + ex.InnerException.Message);
+                ModelState.AddModelError("RegisterError", "Error: " + ex.Message);
+                _logger.LogError(ex.Message, "Unable to register");
                 return Page();
             }
             _notyf.Success("Account Created");

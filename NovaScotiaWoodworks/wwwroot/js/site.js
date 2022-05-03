@@ -3,6 +3,17 @@
 
 
 
+function snackbarFunction() {
+    var snack = document.getElementById("snackbar");
+
+    snack.classList.add("show");
+
+    setTimeout(function () { snack.className = snack.className.replace("show", ""); }, 5000);
+}
+
+
+
+
 $(window).scroll(function (e) {
     var $el = $('.fixedElement');
     var isPositionFixed = ($el.css('position') == 'fixed');
